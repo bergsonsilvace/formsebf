@@ -486,7 +486,9 @@ async function enviar() {
   const pv = document.querySelector('input[name="pv"]:checked')?.value || 'nao';
 
   const payload = {
-    nome, data_nasc: nasc, idade: idade(nasc),
+    nome,
+    data_nasc: nasc || null,
+    idade: nasc ? idade(nasc) : null,
     sexo:       document.getElementById('sexo').value || null,
     responsavel: resp,
     parentesco:  document.getElementById('paren').value || null,
@@ -494,22 +496,27 @@ async function enviar() {
     email:    document.getElementById('email').value.trim() || null,
     endereco: document.getElementById('end').value.trim() || null,
     bairro:   document.getElementById('bairro').value.trim() || null,
-    tipo: 'matriculado', passaporte: passe, primeira_vez: pv,
+    tipo: 'matriculado',
+    passaporte: passe,
+    primeira_vez: pv,
     tem_alergia:   togs.al ? 'sim' : 'nao',
-    alergias:      togs.al ? document.getElementById('alerg').value.trim() : null,
+    alergias:      togs.al ? (document.getElementById('alerg').value.trim() || null) : null,
     tem_restricao: togs.re ? 'sim' : 'nao',
-    restricoes:    togs.re ? document.getElementById('restr').value.trim() : null,
-    medicamentos:  togs.med ? document.getElementById('meds').value.trim() : null,
+    restricoes:    togs.re ? (document.getElementById('restr').value.trim() || null) : null,
+    medicamentos:  togs.med ? (document.getElementById('meds').value.trim() || null) : null,
     autoriza_foto:       togs.foto ? 'sim' : 'nao',
     autoriza_emergencia: togs.emer ? 'sim' : 'nao',
     contato_emergencia:  document.getElementById('c-emerg').value.trim() || null,
     tel_emergencia:      document.getElementById('t-emerg').value.trim() || null,
     observacoes: document.getElementById('obs').value.trim() || null,
-    status: 'pendente', importado: false,
+    status: 'pendente',
+    importado: false,
   };
 
   try {
-    const { error } = await SB.from('inscricoes_ebf').insert(payload);
+    console.log('Enviando payload:', payload);
+    const { data, error } = await SB.from('inscricoes_ebf').insert(payload).select();
+    console.log('Resposta Supabase:', { data, error });
     if (error) throw error;
 
     const link = passe === 'passaporte' ? CFG.passaporte_link : CFG.premium_link;
@@ -520,12 +527,13 @@ async function enviar() {
     document.getElementById('s-link').href = link;
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
-    // Redireciona após 1.5s se o link estiver configurado
     if (link && link !== '#') {
       setTimeout(() => { window.location.href = link; }, 1500);
     }
   } catch(e) {
-    f2.textContent = 'Erro ao salvar. Tente novamente.';
+    console.error('Erro detalhado:', e);
+    const msg = e?.message || e?.details || JSON.stringify(e) || 'Erro desconhecido';
+    f2.textContent = `Erro ao salvar: ${msg}`;
     f2.style.display = 'block';
     btn.disabled = false;
     atualizarBotao();
