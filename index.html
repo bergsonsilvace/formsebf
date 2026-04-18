@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inscrição EBF 2026 — Mudança de Rota</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{
+  --p:#33276d;--p2:#251d52;--p3:#4a3a9a;
+  --g:#f9ae0d;--g2:#fbc63d;--g3:#92400e;
+  --bg:#f2f0f9;--surf:#fff;
+  --t1:#18132e;--t2:#52496a;--t3:#9b93b8;
+  --bd:#e2dcf2;
+  --ok:#22c55e;--err:#ef4444;
+  --r:12px;--rs:8px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--t1);font-size:15px;min-height:100vh}
+
+.hero{background:linear-gradient(150deg,var(--p2) 0%,var(--p) 60%,var(--p3) 100%);padding:36px 20px;text-align:center}
+.hero-icon{font-size:2.8rem;margin-bottom:10px}
+.hero h1{font-family:'Cormorant Garamond',serif;color:#fff;font-size:clamp(1.4rem,5vw,2rem);font-weight:700}
+.hero p{color:rgba(255,255,255,.7);font-size:.85rem;margin-top:5px;line-height:1.5}
+.hero-div{width:40px;height:3px;background:var(--g);border-radius:2px;margin:13px auto}
+
+/* PASSAPORTE */
+.pass-wrap{max-width:600px;margin:0 auto;padding:22px 16px 0}
+.slabel{font-size:.72rem;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:9px;display:block}
+.req{color:var(--err)}
+.pass-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:360px){.pass-grid{grid-template-columns:1fr}}
+
+.pc{
+  border:2px solid var(--bd);border-radius:var(--r);padding:18px 15px 15px;
+  cursor:pointer;transition:.18s;background:var(--surf);position:relative;
+  display:flex;flex-direction:column;
+}
+.pc:hover{border-color:var(--p3);transform:translateY(-1px)}
+.pc.sel-p{border-color:var(--p);background:#f0edf9;box-shadow:0 0 0 3px rgba(51,39,109,.1)}
+.pc.sel-g{border-color:var(--g);background:#fffbeb;box-shadow:0 0 0 3px rgba(249,174,13,.15)}
+
+.pc-check{
+  position:absolute;top:11px;right:11px;width:22px;height:22px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font-size:.72rem;
+  font-weight:800;opacity:0;transition:.15s;
+}
+.pc.sel-p .pc-check{background:var(--p);color:#fff;opacity:1}
+.pc.sel-g .pc-check{background:var(--g);color:var(--p2);opacity:1}
+
+.pc-tag{font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.6px;margin-bottom:5px}
+.pc-tag-p{color:var(--p3)}
+.pc-tag-g{color:var(--g3)}
+.pc-name{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:700;line-height:1.2;margin-bottom:5px}
+.pc-price{font-size:1.55rem;font-weight:800;line-height:1;color:var(--t1)}
+.pc-price em{font-size:.72rem;font-weight:400;color:var(--t3);font-style:normal}
+.pc-desc{font-size:.72rem;color:var(--t2);line-height:1.4;margin-top:6px}
+.pc-prazo{font-size:.65rem;color:var(--t3);margin-top:7px}
+
+/* FORM */
+.fw{max-width:600px;margin:0 auto;padding:14px 16px 48px}
+.req-note{font-size:.72rem;color:var(--t3);margin-bottom:14px}
+
+.sec{background:var(--surf);border-radius:var(--r);border:1px solid var(--bd);margin-bottom:11px;overflow:hidden}
+.sec-h{padding:12px 17px;background:var(--p);color:#fff;display:flex;align-items:center;gap:8px}
+.sec-h h2{font-size:.84rem;font-weight:600;letter-spacing:.2px}
+.sec-b{padding:17px}
+
+.f{margin-bottom:12px}
+.f:last-child{margin-bottom:0}
+.f label{display:block;font-size:.7rem;font-weight:700;color:var(--t2);margin-bottom:4px;text-transform:uppercase;letter-spacing:.4px}
+.f input,.f select,.f textarea{
+  width:100%;padding:10px 12px;border:1.5px solid var(--bd);border-radius:var(--rs);
+  font-family:'DM Sans',sans-serif;font-size:.88rem;color:var(--t1);
+  background:var(--bg);outline:none;transition:.18s;
+}
+.f input:focus,.f select:focus,.f textarea:focus{
+  border-color:var(--p3);background:#fff;box-shadow:0 0 0 3px rgba(74,58,154,.09)
+}
+.f textarea{resize:vertical;min-height:70px}
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+@media(max-width:400px){.fr{grid-template-columns:1fr}}
+
+.ro-group{display:flex;gap:7px;flex-wrap:wrap}
+.ro{display:flex;align-items:center;gap:6px;padding:8px 13px;border:1.5px solid var(--bd);border-radius:var(--rs);cursor:pointer;font-size:.83rem;font-weight:500;transition:.14s;background:var(--bg)}
+.ro input{display:none}
+.ro.on{border-color:var(--p);background:#ede9fe;color:var(--p);font-weight:700}
+
+.tog-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:1px 0}
+.tog-lbl{font-size:.84rem;font-weight:500;line-height:1.4;flex:1}
+.tog{width:44px;height:24px;border-radius:12px;background:var(--bd);border:none;cursor:pointer;position:relative;transition:.2s;flex-shrink:0}
+.tog::after{content:'';position:absolute;width:18px;height:18px;border-radius:50%;background:#fff;top:3px;left:3px;transition:.2s;box-shadow:0 1px 3px rgba(0,0,0,.18)}
+.tog.on{background:var(--ok)}
+.tog.on::after{left:23px}
+.ext{margin-top:11px;padding-top:10px;border-top:1px solid var(--bd);animation:fi .2s ease}
+@keyframes fi{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+
+/* RESUMO + BTN */
+.resumo{background:var(--surf);border:1px solid var(--bd);border-radius:var(--rs);padding:13px 15px;font-size:.82rem;color:var(--t2);margin-bottom:11px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.resumo strong{color:var(--t1)}
+.resumo .preco-badge{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700}
+
+.btn-co{
+  width:100%;padding:15px;border:none;border-radius:var(--r);
+  font-family:'DM Sans',sans-serif;font-size:.95rem;font-weight:700;
+  cursor:pointer;transition:.2s;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.btn-co.tp{background:linear-gradient(135deg,var(--p),var(--p3));color:#fff;box-shadow:0 4px 16px rgba(51,39,109,.28)}
+.btn-co.tg{background:linear-gradient(135deg,var(--g3),var(--g));color:var(--p2);box-shadow:0 4px 14px rgba(249,174,13,.3)}
+.btn-co:hover:not(:disabled){transform:translateY(-1px)}
+.btn-co:disabled{opacity:.55;cursor:not-allowed;transform:none!important}
+
+.ferr{background:#fee2e2;color:#b91c1c;padding:10px 13px;border-radius:var(--rs);font-size:.8rem;margin-bottom:10px;display:none}
+.footer-note{text-align:center;font-size:.7rem;color:var(--t3);padding:16px;line-height:1.6}
+
+/* TELAS */
+#screen-loading{display:flex;min-height:80vh;align-items:center;justify-content:center;flex-direction:column;gap:12px}
+.spin{width:30px;height:30px;border:3px solid var(--bd);border-top-color:var(--p);border-radius:50%;animation:sp .7s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+
+#screen-fechado{display:none;max-width:480px;margin:60px auto;padding:0 16px;text-align:center}
+.fechado-card{background:var(--surf);border-radius:var(--r);padding:32px;border:1px solid var(--bd)}
+.fechado-card h2{font-family:'Cormorant Garamond',serif;font-size:1.25rem;color:var(--p);margin-bottom:8px}
+.fechado-card p{font-size:.84rem;color:var(--t2);line-height:1.6}
+
+#screen-success{display:none;max-width:480px;margin:50px auto;padding:0 16px;text-align:center}
+.suc-card{background:var(--surf);border-radius:var(--r);padding:28px;border:1px solid var(--bd)}
+.suc-ico{font-size:3.5rem;margin-bottom:13px}
+.suc-card h2{font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--p);margin-bottom:8px}
+.suc-card p{font-size:.84rem;color:var(--t2);line-height:1.6}
+.suc-badge{display:inline-flex;align-items:center;gap:5px;background:#dcfce7;color:#15803d;padding:5px 14px;border-radius:20px;font-size:.76rem;font-weight:700;margin-top:12px}
+</style>
+</head>
+<body>
+
+<div id="screen-loading">
+  <div class="spin"></div>
+  <p style="font-size:.8rem;color:var(--t3)">Carregando…</p>
+</div>
+
+<div id="screen-fechado">
+  <div style="font-size:2.5rem;margin-bottom:14px">🔒</div>
+  <div class="fechado-card">
+    <h2>Inscrições Encerradas</h2>
+    <p id="txt-fechado"></p>
+    <a id="link-wa" href="#" target="_blank"
+       style="display:inline-flex;align-items:center;gap:7px;margin-top:16px;background:var(--ok);color:#fff;padding:10px 20px;border-radius:var(--rs);font-size:.84rem;font-weight:700;text-decoration:none">
+      📲 Falar no WhatsApp
+    </a>
+  </div>
+</div>
+
+<div id="screen-form" style="display:none">
+  <div class="hero">
+    <div class="hero-icon">⛺</div>
+    <h1>EBF 2026 — Mudança de Rota</h1>
+    <p>Escola Bíblica de Férias<br>
+      <span id="h-data">17, 18 e 19 de Julho de 2026</span><br>
+      ADTC Ayrton Senna 1 · Fortaleza, CE
+    </p>
+    <div class="hero-div"></div>
+    <p style="color:rgba(255,255,255,.85);font-size:.83rem">Preencha os dados para garantir a vaga da sua criança</p>
+  </div>
+
+  <div class="pass-wrap">
+    <div class="req-note" style="margin-bottom:10px">Campos com <span class="req">*</span> são obrigatórios.</div>
+    <span class="slabel">Escolha o Passaporte <span class="req">*</span></span>
+    <div class="pass-grid">
+      <!-- Passaporte -->
+      <div class="pc sel-p" id="card-p" onclick="selPass('passaporte')">
+        <div class="pc-check">✓</div>
+        <div class="pc-tag pc-tag-p">EBF 2026</div>
+        <div class="pc-name">Passaporte EBF</div>
+        <div class="pc-price" id="preco-p">R$ 27<em>/criança</em></div>
+        <div class="pc-desc" id="desc-p">Acesso aos 3 dias, kit EBF e gincana</div>
+        <div class="pc-prazo" id="prazo-p"></div>
+      </div>
+      <!-- Premium -->
+      <div class="pc" id="card-g" onclick="selPass('premium')">
+        <div class="pc-check">✓</div>
+        <div class="pc-tag pc-tag-g">PREMIUM</div>
+        <div class="pc-name">Passaporte Premium</div>
+        <div class="pc-price" id="preco-g">R$ 47<em>/criança</em></div>
+        <div class="pc-desc" id="desc-g">Tudo do Passaporte + camiseta oficial e brinde exclusivo</div>
+        <div class="pc-prazo" id="prazo-g"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fw">
+    <div class="ferr" id="ferr"></div>
+
+    <!-- CRIANÇA -->
+    <div class="sec">
+      <div class="sec-h"><span>👦</span><h2>Dados da Criança</h2></div>
+      <div class="sec-b">
+        <div class="f"><label>Nome completo <span class="req">*</span></label>
+          <input id="nome" placeholder="Nome completo da criança"></div>
+        <div class="fr">
+          <div class="f"><label>Data de nascimento <span class="req">*</span></label>
+            <input id="nasc" type="date"></div>
+          <div class="f"><label>Sexo</label>
+            <select id="sexo">
+              <option value="">Não informar</option>
+              <option value="M">Masculino</option>
+              <option value="F">Feminino</option>
+            </select></div>
+        </div>
+        <div class="f"><label>Primeira vez na EBF? <span class="req">*</span></label>
+          <div class="ro-group">
+            <label class="ro on" id="ro-nao" onclick="selRo('nao')"><input type="radio" name="pv" value="nao" checked>Não, já participou</label>
+            <label class="ro" id="ro-sim" onclick="selRo('sim')"><input type="radio" name="pv" value="sim">Sim, primeira vez</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESPONSÁVEL -->
+    <div class="sec">
+      <div class="sec-h"><span>👨‍👧</span><h2>Dados do Responsável</h2></div>
+      <div class="sec-b">
+        <div class="fr">
+          <div class="f"><label>Nome do responsável <span class="req">*</span></label>
+            <input id="resp" placeholder="Nome completo"></div>
+          <div class="f"><label>Parentesco</label>
+            <select id="paren">
+              <option value="">Selecionar</option>
+              <option>Pai</option><option>Mãe</option><option>Avó/Avô</option>
+              <option>Tio/Tia</option><option>Outro</option>
+            </select></div>
+        </div>
+        <div class="fr">
+          <div class="f"><label>WhatsApp <span class="req">*</span></label>
+            <input id="tel" type="tel" placeholder="(85) 9 9999-9999"></div>
+          <div class="f"><label>E-mail</label>
+            <input id="email" type="email" placeholder="email@exemplo.com"></div>
+        </div>
+        <div class="fr">
+          <div class="f"><label>Endereço / Rua</label>
+            <input id="end" placeholder="Rua, número"></div>
+          <div class="f"><label>Bairro</label>
+            <input id="bairro" placeholder="Bairro"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SAÚDE -->
+    <div class="sec">
+      <div class="sec-h"><span>🏥</span><h2>Saúde e Necessidades Especiais</h2></div>
+      <div class="sec-b">
+        <div class="f">
+          <div class="tog-row">
+            <span class="tog-lbl">A criança tem alguma alergia alimentar?</span>
+            <button type="button" class="tog" id="tog-al" onclick="togF('al')"></button>
+          </div>
+          <div class="ext" id="ext-al" style="display:none">
+            <div class="f"><label>Descreva as alergias <span class="req">*</span></label>
+              <textarea id="alerg" placeholder="Ex: amendoim, lactose, corante vermelho…"></textarea></div>
+          </div>
+        </div>
+        <div class="f" style="margin-top:10px">
+          <div class="tog-row">
+            <span class="tog-lbl">Tem restrição médica ou necessidade especial?</span>
+            <button type="button" class="tog" id="tog-re" onclick="togF('re')"></button>
+          </div>
+          <div class="ext" id="ext-re" style="display:none">
+            <div class="f"><label>Descreva as restrições</label>
+              <textarea id="restr" placeholder="Ex: tem asma, não pode correr muito…"></textarea></div>
+          </div>
+        </div>
+        <div class="f" style="margin-top:10px">
+          <div class="tog-row">
+            <span class="tog-lbl">A criança usa algum medicamento?</span>
+            <button type="button" class="tog" id="tog-med" onclick="togF('med')"></button>
+          </div>
+          <div class="ext" id="ext-med" style="display:none">
+            <div class="f"><label>Medicamento e horário</label>
+              <textarea id="meds" placeholder="Ex: Ritalina 10mg às 12h…"></textarea></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AUTORIZAÇÕES -->
+    <div class="sec">
+      <div class="sec-h"><span>📋</span><h2>Autorizações</h2></div>
+      <div class="sec-b">
+        <div class="f">
+          <div class="tog-row">
+            <span class="tog-lbl">Autorizo fotos e vídeos nas redes sociais da igreja</span>
+            <button type="button" class="tog on" id="tog-foto" onclick="togS('foto')"></button>
+          </div>
+        </div>
+        <div class="f" style="margin-top:10px">
+          <div class="tog-row">
+            <span class="tog-lbl">Autorizo decisões médicas de emergência pela equipe</span>
+            <button type="button" class="tog on" id="tog-emer" onclick="togS('emer')"></button>
+          </div>
+        </div>
+        <div class="fr" style="margin-top:12px">
+          <div class="f"><label>Contato de emergência</label>
+            <input id="c-emerg" placeholder="Nome"></div>
+          <div class="f"><label>Telefone de emergência</label>
+            <input id="t-emerg" type="tel" placeholder="(85) 9…"></div>
+        </div>
+        <div class="f"><label>Observações adicionais</label>
+          <textarea id="obs" placeholder="Qualquer informação importante…"></textarea></div>
+      </div>
+    </div>
+
+    <!-- RESUMO + BOTÃO -->
+    <div class="resumo">
+      <div>
+        Você selecionou<br>
+        <strong id="res-nome">Passaporte EBF</strong>
+      </div>
+      <div class="preco-badge" id="res-preco" style="color:var(--p)">R$ 27</div>
+    </div>
+    <div class="ferr" id="ferr2"></div>
+    <button class="btn-co tp" id="btn-co" onclick="enviar()">
+      Salvar dados e ir para o pagamento →
+    </button>
+    <div class="footer-note">
+      Dados usados exclusivamente para organização do evento.<br>
+      ADTC Ayrton Senna 1 · Ministério Infantil · EBF 2026
+    </div>
+  </div>
+</div>
+
+<div id="screen-success">
+  <div class="suc-ico">🎉</div>
+  <div class="suc-card">
+    <h2>Dados recebidos!</h2>
+    <p>As informações de <strong id="s-nome">—</strong> foram salvas com sucesso.<br>
+    Você será redirecionado para o pagamento em instantes…<br>
+    Se não acontecer, <a id="s-link" href="#" style="color:var(--p);font-weight:700">clique aqui</a>.</p>
+    <div class="suc-badge">✓ Dados salvos</div>
+  </div>
+</div>
+
+<script>
+const SB = supabase.createClient(
+  'https://erfmwaylutihtbzfwswa.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVyZm13YXlsdXRpaHRiemZ3c3dhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU0MTQzNTAsImV4cCI6MjA5MDk5MDM1MH0.w-yBwnoc3zmvcoPwkljPG-c3YQbFZ2D96L_1qsvtiyg'
+);
+
+// ── VALORES PADRÃO (fallback se Supabase não carregar) ──
+let CFG = {
+  passaporte_preco: '27',
+  passaporte_desc:  'Acesso aos 3 dias, kit EBF e gincana',
+  passaporte_link:  '#',
+  premium_preco:    '47',
+  premium_desc:     'Tudo do Passaporte + camiseta oficial e brinde exclusivo',
+  premium_link:     '#',
+  prazo_lote1:      '',
+  evento_data:      '17, 18 e 19 de Julho de 2026',
+  formulario_ativo: 'sim',
+  msg_encerrado:    'As inscrições estão encerradas.',
+  whatsapp_contato: '5585999999999',
+};
+
+let passe = 'passaporte';
+let togs = { al:false, re:false, med:false, foto:true, emer:true };
+
+async function init() {
+  try {
+    const { data, error } = await SB.from('config_ebf').select('chave,valor');
+    if (!error && data && data.length > 0) {
+      data.forEach(r => { CFG[r.chave] = r.valor; });
+    }
+  } catch(e) {
+    console.log('Usando configurações padrão:', e.message);
+  }
+
+  // Formulário fechado?
+  if (CFG.formulario_ativo === 'nao') {
+    document.getElementById('screen-loading').style.display = 'none';
+    document.getElementById('screen-fechado').style.display = 'block';
+    document.getElementById('txt-fechado').textContent = CFG.msg_encerrado;
+    document.getElementById('link-wa').href = `https://wa.me/${CFG.whatsapp_contato}`;
+    return;
+  }
+
+  // Preenche dados
+  document.getElementById('h-data').textContent = CFG.evento_data;
+
+  document.getElementById('preco-p').innerHTML = `R$ ${CFG.passaporte_preco}<em>/criança</em>`;
+  document.getElementById('desc-p').textContent = CFG.passaporte_desc;
+
+  document.getElementById('preco-g').innerHTML = `R$ ${CFG.premium_preco}<em>/criança</em>`;
+  document.getElementById('desc-g').textContent = CFG.premium_desc;
+
+  if (CFG.prazo_lote1) {
+    document.getElementById('prazo-p').textContent = `Até ${CFG.prazo_lote1}`;
+    document.getElementById('prazo-g').textContent = `Até ${CFG.prazo_lote1}`;
+  }
+
+  atualizarBotao();
+
+  document.getElementById('screen-loading').style.display = 'none';
+  document.getElementById('screen-form').style.display = 'block';
+}
+
+function selPass(p) {
+  passe = p;
+  document.getElementById('card-p').className = 'pc' + (p==='passaporte' ? ' sel-p' : '');
+  document.getElementById('card-g').className = 'pc' + (p==='premium' ? ' sel-g' : '');
+  atualizarBotao();
+}
+
+function atualizarBotao() {
+  const btn = document.getElementById('btn-co');
+  const resNome = document.getElementById('res-nome');
+  const resPreco = document.getElementById('res-preco');
+
+  if (passe === 'passaporte') {
+    btn.className = 'btn-co tp';
+    btn.textContent = `Salvar dados e pagar R$ ${CFG.passaporte_preco} →`;
+    resNome.textContent = 'Passaporte EBF';
+    resPreco.textContent = `R$ ${CFG.passaporte_preco}`;
+    resPreco.style.color = 'var(--p)';
+  } else {
+    btn.className = 'btn-co tg';
+    btn.textContent = `Salvar dados e pagar R$ ${CFG.premium_preco} →`;
+    resNome.textContent = 'Passaporte Premium';
+    resPreco.textContent = `R$ ${CFG.premium_preco}`;
+    resPreco.style.color = 'var(--g3)';
+  }
+}
+
+function selRo(v) {
+  document.getElementById('ro-nao').classList.toggle('on', v==='nao');
+  document.getElementById('ro-sim').classList.toggle('on', v==='sim');
+}
+
+function togF(k) {
+  togs[k] = !togs[k];
+  document.getElementById('tog-'+k).classList.toggle('on', togs[k]);
+  document.getElementById('ext-'+k).style.display = togs[k] ? 'block' : 'none';
+}
+
+function togS(k) {
+  togs[k] = !togs[k];
+  document.getElementById('tog-'+k).classList.toggle('on', togs[k]);
+}
+
+function idade(d) {
+  if (!d) return null;
+  const h = new Date(), n = new Date(d);
+  let a = h.getFullYear() - n.getFullYear();
+  if (h.getMonth() < n.getMonth() || (h.getMonth()===n.getMonth() && h.getDate()<n.getDate())) a--;
+  return a;
+}
+
+async function enviar() {
+  const f1 = document.getElementById('ferr');
+  const f2 = document.getElementById('ferr2');
+  f1.style.display = f2.style.display = 'none';
+
+  const nome = document.getElementById('nome').value.trim();
+  const nasc  = document.getElementById('nasc').value;
+  const resp  = document.getElementById('resp').value.trim();
+  const tel   = document.getElementById('tel').value.trim();
+
+  const erros = [];
+  if (!nome) erros.push('Nome da criança');
+  if (!nasc)  erros.push('Data de nascimento');
+  if (!resp)  erros.push('Nome do responsável');
+  if (!tel)   erros.push('WhatsApp');
+  if (togs.al && !document.getElementById('alerg').value.trim()) erros.push('Descrição das alergias');
+
+  if (erros.length) {
+    const msg = `Preencha: ${erros.join(', ')}.`;
+    f1.textContent = f2.textContent = msg;
+    f1.style.display = f2.style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    return;
+  }
+
+  const btn = document.getElementById('btn-co');
+  btn.disabled = true;
+  btn.textContent = 'Salvando…';
+
+  const pv = document.querySelector('input[name="pv"]:checked')?.value || 'nao';
+
+  const payload = {
+    nome, data_nasc: nasc, idade: idade(nasc),
+    sexo:       document.getElementById('sexo').value || null,
+    responsavel: resp,
+    parentesco:  document.getElementById('paren').value || null,
+    telefone: tel,
+    email:    document.getElementById('email').value.trim() || null,
+    endereco: document.getElementById('end').value.trim() || null,
+    bairro:   document.getElementById('bairro').value.trim() || null,
+    tipo: 'matriculado', passaporte: passe, primeira_vez: pv,
+    tem_alergia:   togs.al ? 'sim' : 'nao',
+    alergias:      togs.al ? document.getElementById('alerg').value.trim() : null,
+    tem_restricao: togs.re ? 'sim' : 'nao',
+    restricoes:    togs.re ? document.getElementById('restr').value.trim() : null,
+    medicamentos:  togs.med ? document.getElementById('meds').value.trim() : null,
+    autoriza_foto:       togs.foto ? 'sim' : 'nao',
+    autoriza_emergencia: togs.emer ? 'sim' : 'nao',
+    contato_emergencia:  document.getElementById('c-emerg').value.trim() || null,
+    tel_emergencia:      document.getElementById('t-emerg').value.trim() || null,
+    observacoes: document.getElementById('obs').value.trim() || null,
+    status: 'pendente', importado: false,
+  };
+
+  try {
+    const { error } = await SB.from('inscricoes_ebf').insert(payload);
+    if (error) throw error;
+
+    const link = passe === 'passaporte' ? CFG.passaporte_link : CFG.premium_link;
+
+    document.getElementById('screen-form').style.display = 'none';
+    document.getElementById('screen-success').style.display = 'block';
+    document.getElementById('s-nome').textContent = nome;
+    document.getElementById('s-link').href = link;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // Redireciona após 1.5s se o link estiver configurado
+    if (link && link !== '#') {
+      setTimeout(() => { window.location.href = link; }, 1500);
+    }
+  } catch(e) {
+    f2.textContent = 'Erro ao salvar. Tente novamente.';
+    f2.style.display = 'block';
+    btn.disabled = false;
+    atualizarBotao();
+  }
+}
+
+init();
+</script>
+</body>
+</html>
