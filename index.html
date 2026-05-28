@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Inscrição EBF 2026 — Mudança de Rota</title>
+<title>Inscrição em Grupo — EBF 2026</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
@@ -19,66 +19,29 @@
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--t1);font-size:15px;min-height:100vh}
 
+/* HERO */
 .hero{background:linear-gradient(150deg,var(--p2) 0%,var(--p) 60%,var(--p3) 100%);padding:36px 20px;text-align:center}
 .hero-icon{font-size:2.8rem;margin-bottom:10px}
-.hero h1{font-family:'Cormorant Garamond',serif;color:#fff;font-size:clamp(1.4rem,5vw,2rem);font-weight:700}
-.hero p{color:rgba(255,255,255,.7);font-size:.85rem;margin-top:5px;line-height:1.5}
+.hero h1{font-family:'Cormorant Garamond',serif;color:#fff;font-size:clamp(1.3rem,5vw,1.9rem);font-weight:700}
+.hero p{color:rgba(255,255,255,.7);font-size:.83rem;margin-top:5px;line-height:1.5}
 .hero-div{width:40px;height:3px;background:var(--g);border-radius:2px;margin:13px auto}
+.badge-grupo{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:#fff;padding:5px 13px;border-radius:20px;font-size:.72rem;font-weight:600;margin-top:10px}
 
-/* PASSAPORTE */
-.pass-wrap{max-width:600px;margin:0 auto;padding:22px 16px 0}
-.slabel{font-size:.72rem;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:9px;display:block}
-.req{color:var(--err)}
-.pass-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-@media(max-width:360px){.pass-grid{grid-template-columns:1fr}}
+/* LAYOUT */
+.fw{max-width:600px;margin:0 auto;padding:16px 16px 60px}
 
-.pc{
-  border:2px solid var(--bd);border-radius:var(--r);padding:18px 15px 15px;
-  cursor:pointer;transition:.18s;background:var(--surf);position:relative;
-  display:flex;flex-direction:column;
-}
-.pc:hover{border-color:var(--p3);transform:translateY(-1px)}
-.pc.sel-p{border-color:var(--p);background:#f0edf9;box-shadow:0 0 0 3px rgba(51,39,109,.1)}
-.pc.sel-g{border-color:var(--g);background:#fffbeb;box-shadow:0 0 0 3px rgba(249,174,13,.15)}
-
-.pc-check{
-  position:absolute;top:11px;right:11px;width:22px;height:22px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;font-size:.72rem;
-  font-weight:800;opacity:0;transition:.15s;
-}
-.pc.sel-p .pc-check{background:var(--p);color:#fff;opacity:1}
-.pc.sel-g .pc-check{background:var(--g);color:var(--p2);opacity:1}
-
-.pc-tag{font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.6px;margin-bottom:5px}
-.pc-tag-p{color:var(--p3)}
-.pc-tag-g{color:var(--g3)}
-.pc-name{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:700;line-height:1.2;margin-bottom:5px}
-.pc-price{font-size:1.55rem;font-weight:800;line-height:1;color:var(--t1)}
-.pc-price em{font-size:.72rem;font-weight:400;color:var(--t3);font-style:normal}
-.pc-desc{font-size:.72rem;color:var(--t2);line-height:1.4;margin-top:6px}
-.pc-prazo{font-size:.65rem;color:var(--t3);margin-top:7px}
-
-/* FORM */
-.fw{max-width:600px;margin:0 auto;padding:14px 16px 48px}
-.req-note{font-size:.72rem;color:var(--t3);margin-bottom:14px}
-
-.sec{background:var(--surf);border-radius:var(--r);border:1px solid var(--bd);margin-bottom:11px;overflow:hidden}
-.sec-h{padding:12px 17px;background:var(--p);color:#fff;display:flex;align-items:center;gap:8px}
-.sec-h h2{font-size:.84rem;font-weight:600;letter-spacing:.2px}
-.sec-b{padding:17px}
-
+/* FORM FIELDS */
 .f{margin-bottom:12px}
 .f:last-child{margin-bottom:0}
 .f label{display:block;font-size:.7rem;font-weight:700;color:var(--t2);margin-bottom:4px;text-transform:uppercase;letter-spacing:.4px}
+.req{color:var(--err)}
 .f input,.f select,.f textarea{
   width:100%;padding:10px 12px;border:1.5px solid var(--bd);border-radius:var(--rs);
   font-family:'DM Sans',sans-serif;font-size:.88rem;color:var(--t1);
   background:var(--bg);outline:none;transition:.18s;
 }
-.f input:focus,.f select:focus,.f textarea:focus{
-  border-color:var(--p3);background:#fff;box-shadow:0 0 0 3px rgba(74,58,154,.09)
-}
-.f textarea{resize:vertical;min-height:70px}
+.f input:focus,.f select:focus,.f textarea:focus{border-color:var(--p3);background:#fff;box-shadow:0 0 0 3px rgba(74,58,154,.09)}
+.f textarea{resize:vertical;min-height:60px}
 .fr{display:grid;grid-template-columns:1fr 1fr;gap:9px}
 @media(max-width:400px){.fr{grid-template-columns:1fr}}
 
@@ -87,19 +50,74 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--t1);font-
 .ro input{display:none}
 .ro.on{border-color:var(--p);background:#ede9fe;color:var(--p);font-weight:700}
 
-.tog-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:1px 0}
+.tog-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:2px 0}
 .tog-lbl{font-size:.84rem;font-weight:500;line-height:1.4;flex:1}
 .tog{width:44px;height:24px;border-radius:12px;background:var(--bd);border:none;cursor:pointer;position:relative;transition:.2s;flex-shrink:0}
 .tog::after{content:'';position:absolute;width:18px;height:18px;border-radius:50%;background:#fff;top:3px;left:3px;transition:.2s;box-shadow:0 1px 3px rgba(0,0,0,.18)}
 .tog.on{background:var(--ok)}
 .tog.on::after{left:23px}
-.ext{margin-top:11px;padding-top:10px;border-top:1px solid var(--bd);animation:fi .2s ease}
+.ext{margin-top:10px;padding-top:10px;border-top:1px solid var(--bd);animation:fi .2s ease}
 @keyframes fi{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
 
-/* RESUMO + BTN */
-.resumo{background:var(--surf);border:1px solid var(--bd);border-radius:var(--rs);padding:13px 15px;font-size:.82rem;color:var(--t2);margin-bottom:11px;display:flex;align-items:center;justify-content:space-between;gap:8px}
-.resumo strong{color:var(--t1)}
-.resumo .preco-badge{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700}
+/* SEÇÃO */
+.sec{background:var(--surf);border-radius:var(--r);border:1px solid var(--bd);margin-bottom:10px;overflow:hidden}
+.sec-h{padding:11px 16px;background:var(--p);color:#fff;display:flex;align-items:center;gap:8px}
+.sec-h h2{font-size:.83rem;font-weight:600;letter-spacing:.2px}
+.sec-b{padding:16px}
+
+/* PASSAPORTE CARD */
+.pass-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:0}
+@media(max-width:360px){.pass-grid{grid-template-columns:1fr}}
+.pc{border:2px solid var(--bd);border-radius:var(--r);padding:16px 14px 14px;cursor:pointer;transition:.18s;background:var(--surf);position:relative;display:flex;flex-direction:column}
+.pc:hover{border-color:var(--p3);transform:translateY(-1px)}
+.pc.sel-p{border-color:var(--p);background:#f0edf9;box-shadow:0 0 0 3px rgba(51,39,109,.1)}
+.pc.sel-g{border-color:var(--g);background:#fffbeb;box-shadow:0 0 0 3px rgba(249,174,13,.15)}
+.pc-check{position:absolute;top:10px;right:10px;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:800;opacity:0;transition:.15s}
+.pc.sel-p .pc-check{background:var(--p);color:#fff;opacity:1}
+.pc.sel-g .pc-check{background:var(--g);color:var(--p2);opacity:1}
+.pc-tag{font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.6px;margin-bottom:4px}
+.pc-tag-p{color:var(--p3)}
+.pc-tag-g{color:var(--g3)}
+.pc-name{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;line-height:1.2;margin-bottom:4px}
+.pc-price{font-size:1.45rem;font-weight:800;line-height:1;color:var(--t1)}
+.pc-price em{font-size:.7rem;font-weight:400;color:var(--t3);font-style:normal}
+.pc-desc{font-size:.7rem;color:var(--t2);line-height:1.4;margin-top:5px}
+
+/* CRIANÇA CARD (acordeão) */
+.child-card{background:var(--surf);border:1.5px solid var(--bd);border-radius:var(--r);margin-bottom:10px;overflow:hidden;transition:.2s}
+.child-card.has-error{border-color:var(--err)}
+.child-header{display:flex;align-items:center;gap:10px;padding:13px 15px;cursor:pointer;user-select:none;background:var(--surf);transition:.15s}
+.child-header:hover{background:#f8f7fc}
+.child-avatar{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--p),var(--p3));color:#fff;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;flex-shrink:0}
+.child-info{flex:1;min-width:0}
+.child-nome{font-weight:600;font-size:.88rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.child-sub{font-size:.7rem;color:var(--t3);margin-top:1px}
+.child-badge{font-size:.62rem;font-weight:700;padding:2px 8px;border-radius:4px;flex-shrink:0}
+.child-badge.ok{background:#dcfce7;color:#15803d}
+.child-badge.pend{background:#fef3c7;color:#854d0e}
+.child-badge.err{background:#fee2e2;color:#b91c1c}
+.child-arrow{font-size:.75rem;color:var(--t3);transition:.25s;flex-shrink:0}
+.child-arrow.open{transform:rotate(180deg)}
+.child-body{display:none;padding:16px;border-top:1px solid var(--bd)}
+.child-body.open{display:block;animation:fi .2s ease}
+.child-del{width:28px;height:28px;border-radius:7px;background:#fee2e2;border:none;color:#b91c1c;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.85rem;flex-shrink:0;transition:.15s}
+.child-del:hover{background:#fecaca}
+
+/* CONTADOR + TOTAL */
+.total-bar{background:var(--surf);border:1.5px solid var(--bd);border-radius:var(--r);padding:14px 16px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.total-qtd{font-size:.82rem;color:var(--t2)}
+.total-qtd strong{color:var(--t1);font-size:.95rem}
+.total-valor{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:700;color:var(--p)}
+.total-detalhe{font-size:.68rem;color:var(--t3);text-align:right;margin-top:1px}
+
+/* BOTÕES */
+.btn-add{
+  width:100%;padding:13px;border:2px dashed var(--bd);border-radius:var(--r);
+  background:transparent;color:var(--p3);font-family:'DM Sans',sans-serif;
+  font-size:.88rem;font-weight:600;cursor:pointer;transition:.18s;margin-bottom:12px;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.btn-add:hover{border-color:var(--p3);background:#f0edf9}
 
 .btn-co{
   width:100%;padding:15px;border:none;border-radius:var(--r);
@@ -113,46 +131,39 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--t1);font-
 .btn-co:disabled{opacity:.55;cursor:not-allowed;transform:none!important}
 
 .ferr{background:#fee2e2;color:#b91c1c;padding:10px 13px;border-radius:var(--rs);font-size:.8rem;margin-bottom:10px;display:none}
-.footer-note{text-align:center;font-size:.7rem;color:var(--t3);padding:16px;line-height:1.6}
 
 /* TELAS */
 #screen-loading{display:flex;min-height:80vh;align-items:center;justify-content:center;flex-direction:column;gap:12px}
 .spin{width:30px;height:30px;border:3px solid var(--bd);border-top-color:var(--p);border-radius:50%;animation:sp .7s linear infinite}
 @keyframes sp{to{transform:rotate(360deg)}}
+#screen-fechado,#screen-form,#screen-success{display:none}
 
-#screen-fechado{display:none;max-width:480px;margin:60px auto;padding:0 16px;text-align:center}
-.fechado-card{background:var(--surf);border-radius:var(--r);padding:32px;border:1px solid var(--bd)}
-.fechado-card h2{font-family:'Cormorant Garamond',serif;font-size:1.25rem;color:var(--p);margin-bottom:8px}
-.fechado-card p{font-size:.84rem;color:var(--t2);line-height:1.6}
-
-#screen-success{display:none;max-width:480px;margin:50px auto;padding:0 16px;text-align:center}
-.suc-card{background:var(--surf);border-radius:var(--r);padding:28px;border:1px solid var(--bd)}
-.suc-ico{font-size:3.5rem;margin-bottom:13px}
-.suc-card h2{font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--p);margin-bottom:8px}
-.suc-card p{font-size:.84rem;color:var(--t2);line-height:1.6}
-.suc-badge{display:inline-flex;align-items:center;gap:5px;background:#dcfce7;color:#15803d;padding:5px 14px;border-radius:20px;font-size:.76rem;font-weight:700;margin-top:12px}
+.footer-note{text-align:center;font-size:.7rem;color:var(--t3);padding:16px;line-height:1.6}
 </style>
 </head>
 <body>
 
+<!-- Loading -->
 <div id="screen-loading">
   <div class="spin"></div>
   <p style="font-size:.8rem;color:var(--t3)">Carregando…</p>
 </div>
 
-<div id="screen-fechado">
+<!-- Fechado -->
+<div id="screen-fechado" style="min-height:80vh;display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:30px 20px">
   <div style="font-size:2.5rem;margin-bottom:14px">🔒</div>
-  <div class="fechado-card">
-    <h2>Inscrições Encerradas</h2>
-    <p id="txt-fechado"></p>
-    <a id="link-wa" href="#" target="_blank"
-       style="display:inline-flex;align-items:center;gap:7px;margin-top:16px;background:var(--ok);color:#fff;padding:10px 20px;border-radius:var(--rs);font-size:.84rem;font-weight:700;text-decoration:none">
+  <div style="background:var(--surf);border-radius:var(--r);border:1px solid var(--bd);padding:24px;max-width:380px">
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--p);margin-bottom:8px">Inscrições Encerradas</h2>
+    <p id="txt-fechado" style="font-size:.84rem;color:var(--t2);line-height:1.6"></p>
+    <a id="link-wa" href="#" target="_blank" style="display:inline-flex;align-items:center;gap:7px;margin-top:16px;background:#25d366;color:#fff;padding:10px 18px;border-radius:var(--rs);font-size:.85rem;font-weight:700;text-decoration:none">
       📲 Falar no WhatsApp
     </a>
   </div>
 </div>
 
+<!-- Formulário -->
 <div id="screen-form" style="display:none">
+
   <div class="hero">
     <div class="hero-icon">⛺</div>
     <h1>EBF 2026 — Mudança de Rota</h1>
@@ -161,247 +172,113 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--t1);font-
       ADTC Ayrton Senna 1 · Fortaleza, CE
     </p>
     <div class="hero-div"></div>
-    <p style="color:rgba(255,255,255,.85);font-size:.83rem">Preencha os dados para garantir a vaga da sua criança</p>
-  </div>
-
-  <div class="pass-wrap">
-    <div class="req-note" style="margin-bottom:10px">Campos com <span class="req">*</span> são obrigatórios.</div>
-    <span class="slabel">Escolha o Passaporte <span class="req">*</span></span>
-    <div class="pass-grid">
-      <!-- Passaporte -->
-      <div class="pc sel-p" id="card-p" onclick="selPass('passaporte')">
-        <div class="pc-check">✓</div>
-        <div class="pc-tag pc-tag-p">EBF 2026</div>
-        <div class="pc-name">Passaporte EBF</div>
-        <div class="pc-price" id="preco-p">R$ 15<em>/criança</em></div>
-        <div class="pc-desc" id="desc-p">Acesso aos 3 dias, kit EBF e gincana</div>
-        <div class="pc-prazo" id="prazo-p"></div>
-      </div>
-      <!-- Premium -->
-      <div class="pc" id="card-g" onclick="selPass('premium')">
-        <div class="pc-check">✓</div>
-        <div class="pc-tag pc-tag-g">PREMIUM</div>
-        <div class="pc-name">Passaporte Premium</div>
-        <div class="pc-price" id="preco-g">R$ 47<em>/criança</em></div>
-        <div class="pc-desc" id="desc-g">Tudo do Passaporte + camiseta oficial e brinde exclusivo</div>
-        <div class="pc-prazo" id="prazo-g"></div>
-      </div>
-    </div>
+    <div class="badge-grupo">👨‍👧 Inscrição em Grupo — várias crianças</div>
   </div>
 
   <div class="fw">
-    <div class="ferr" id="ferr"></div>
+    <p class="footer-note" style="padding:14px 0 10px;text-align:left">Preencha os dados do responsável uma vez e adicione quantas crianças precisar.</p>
 
-    <!-- CRIANÇA -->
-    <div class="sec">
-      <div class="sec-h"><span>👦</span><h2>Dados da Criança</h2></div>
-      <div class="sec-b">
-        <div class="f"><label>Nome completo <span class="req">*</span></label>
-          <input id="nome" placeholder="Nome completo da criança"></div>
-        <div class="fr">
-          <div class="f"><label>Data de nascimento <span class="req">*</span></label>
-            <input id="nasc" type="date"></div>
-          <div class="f"><label>Sexo</label>
-            <select id="sexo">
-              <option value="">Não informar</option>
-              <option value="M">Masculino</option>
-              <option value="F">Feminino</option>
-            </select></div>
-        </div>
-        <div class="f"><label>Primeira vez na EBF? <span class="req">*</span></label>
-          <div class="ro-group">
-            <label class="ro on" id="ro-nao" onclick="selRo('nao')"><input type="radio" name="pv" value="nao" checked>Não, já participou</label>
-            <label class="ro" id="ro-sim" onclick="selRo('sim')"><input type="radio" name="pv" value="sim">Sim, primeira vez</label>
-          </div>
-        </div>
-      </div>
+    <!-- ── CRIANÇAS ──────────────────────────────────────── -->
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;margin-top:4px">
+      <div style="font-size:.72rem;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.5px">👦 Crianças</div>
+      <div id="qtd-label" style="font-size:.72rem;color:var(--t3)">0 criança(s)</div>
     </div>
 
-    <!-- RESPONSÁVEL -->
-    <div class="sec">
-      <div class="sec-h"><span>👨‍👧</span><h2>Dados do Responsável</h2></div>
-      <div class="sec-b">
-        <div class="fr">
-          <div class="f"><label>Nome do responsável <span class="req">*</span></label>
-            <input id="resp" placeholder="Nome completo"></div>
-          <div class="f"><label>Parentesco</label>
-            <select id="paren">
-              <option value="">Selecionar</option>
-              <option>Pai</option><option>Mãe</option><option>Avó/Avô</option>
-              <option>Tio/Tia</option><option>Outro</option>
-            </select></div>
-        </div>
-        <div class="fr">
-          <div class="f"><label>WhatsApp <span class="req">*</span></label>
-            <input id="tel" type="tel" placeholder="(85) 9 9999-9999"></div>
-          <div class="f"><label>E-mail</label>
-            <input id="email" type="email" placeholder="email@exemplo.com"></div>
-        </div>
-        <div class="fr">
-          <div class="f"><label>Endereço / Rua</label>
-            <input id="end" placeholder="Rua, número"></div>
-          <div class="f"><label>Bairro</label>
-            <input id="bairro" placeholder="Bairro"></div>
-        </div>
-      </div>
-    </div>
+    <!-- Lista de crianças cadastradas -->
+    <div id="lista-criancas"></div>
 
-    <!-- SAÚDE -->
-    <div class="sec">
-      <div class="sec-h"><span>🏥</span><h2>Saúde e Necessidades Especiais</h2></div>
-      <div class="sec-b">
-        <div class="f">
-          <div class="tog-row">
-            <span class="tog-lbl">A criança tem alguma alergia alimentar?</span>
-            <button type="button" class="tog" id="tog-al" onclick="togF('al')"></button>
-          </div>
-          <div class="ext" id="ext-al" style="display:none">
-            <div class="f"><label>Descreva as alergias <span class="req">*</span></label>
-              <textarea id="alerg" placeholder="Ex: amendoim, lactose, corante vermelho…"></textarea></div>
-          </div>
-        </div>
-        <div class="f" style="margin-top:10px">
-          <div class="tog-row">
-            <span class="tog-lbl">Tem restrição médica ou necessidade especial?</span>
-            <button type="button" class="tog" id="tog-re" onclick="togF('re')"></button>
-          </div>
-          <div class="ext" id="ext-re" style="display:none">
-            <div class="f"><label>Descreva as restrições</label>
-              <textarea id="restr" placeholder="Ex: tem asma, não pode correr muito…"></textarea></div>
-          </div>
-        </div>
-        <div class="f" style="margin-top:10px">
-          <div class="tog-row">
-            <span class="tog-lbl">A criança usa algum medicamento?</span>
-            <button type="button" class="tog" id="tog-med" onclick="togF('med')"></button>
-          </div>
-          <div class="ext" id="ext-med" style="display:none">
-            <div class="f"><label>Medicamento e horário</label>
-              <textarea id="meds" placeholder="Ex: Ritalina 10mg às 12h…"></textarea></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- AUTORIZAÇÕES -->
-    <div class="sec">
-      <div class="sec-h"><span>📋</span><h2>Autorizações</h2></div>
-      <div class="sec-b">
-        <div class="f">
-          <div class="tog-row">
-            <span class="tog-lbl">Autorizo fotos e vídeos nas redes sociais da igreja</span>
-            <button type="button" class="tog on" id="tog-foto" onclick="togS('foto')"></button>
-          </div>
-        </div>
-        <div class="f" style="margin-top:10px">
-          <div class="tog-row">
-            <span class="tog-lbl">Autorizo decisões médicas de emergência pela equipe</span>
-            <button type="button" class="tog on" id="tog-emer" onclick="togS('emer')"></button>
-          </div>
-        </div>
-        <div class="fr" style="margin-top:12px">
-          <div class="f"><label>Contato de emergência</label>
-            <input id="c-emerg" placeholder="Nome"></div>
-          <div class="f"><label>Telefone de emergência</label>
-            <input id="t-emerg" type="tel" placeholder="(85) 9…"></div>
-        </div>
-        <div class="f"><label>Observações adicionais</label>
-          <textarea id="obs" placeholder="Qualquer informação importante…"></textarea></div>
-      </div>
-    </div>
-
-    <!-- RESUMO + BOTÃO -->
-    <div class="resumo">
-      <div>
-        Você selecionou<br>
-        <strong id="res-nome">Passaporte EBF</strong>
-      </div>
-      <div class="preco-badge" id="res-preco" style="color:var(--p)">R$ 15</div>
-    </div>
-    <div class="ferr" id="ferr2"></div>
-    <button class="btn-co tp" id="btn-co" onclick="enviar()">
-      Salvar dados e ir para o pagamento →
+    <!-- Botão adicionar criança -->
+    <button class="btn-add" onclick="adicionarCrianca()">
+      <span style="font-size:1.1rem">+</span> Adicionar criança
     </button>
-    <div class="footer-note">
-      Dados usados exclusivamente para organização do evento.<br>
-      ADTC Ayrton Senna 1 · Ministério Infantil · EBF 2026
+
+    <!-- Erro geral -->
+    <div class="ferr" id="ferr">Preencha todos os campos obrigatórios.</div>
+
+    <!-- Total -->
+    <div class="total-bar" id="total-bar" style="display:none">
+      <div>
+        <div class="total-qtd">Total da inscrição:</div>
+        <div class="total-detalhe" id="total-detalhe">0 criança × R$0</div>
+      </div>
+      <div class="total-valor" id="total-valor">R$ 0</div>
     </div>
+
+    <!-- Botão enviar -->
+    <button class="btn-co tp" id="btn-co" onclick="enviar()" disabled>
+      Adicione ao menos uma criança
+    </button>
+
+    <p class="footer-note">Dados usados exclusivamente para organização do evento.<br>ADTC Ayrton Senna 1 · Ministério Infantil · EBF 2026</p>
   </div>
 </div>
 
+<!-- Sucesso -->
 <div id="screen-success" style="display:none;padding:20px 16px;max-width:480px;margin:0 auto">
 
-  <!-- Cabeçalho -->
   <div style="text-align:center;margin-bottom:24px">
     <div style="font-size:2.8rem;margin-bottom:10px">✅</div>
-    <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--p);margin-bottom:6px">Inscrição recebida!</h2>
-    <p style="font-size:.84rem;color:var(--t2)">Os dados de <strong id="s-nome" style="color:var(--ink)">—</strong> foram salvos com sucesso.</p>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--p);margin-bottom:6px">Inscrições recebidas!</h2>
+    <p style="font-size:.84rem;color:var(--t2)">
+      <span id="s-qtd" style="font-weight:700;color:var(--t1)">—</span> criança(s) inscrita(s) com sucesso.
+    </p>
   </div>
+
+  <!-- Nomes das crianças -->
+  <div id="s-lista-nomes" style="background:var(--surf);border-radius:10px;border:1px solid var(--bd);padding:14px;margin-bottom:14px"></div>
 
   <!-- Card Pix -->
   <div style="background:var(--surf);border-radius:14px;border:1.5px solid var(--bd);overflow:hidden;margin-bottom:14px">
-
-    <!-- Topo -->
-    <div style="background:var(--p);padding:14px 18px;display:flex;align-items:center;gap:10px">
-      <div style="font-size:1.4rem">💰</div>
+    <div style="background:var(--p);padding:13px 17px;display:flex;align-items:center;gap:10px">
+      <div style="font-size:1.3rem">💰</div>
       <div>
-        <div style="font-weight:700;color:#fff;font-size:.95rem">Finalize sua inscrição</div>
-        <div style="font-size:.75rem;color:rgba(255,255,255,.7)">Realize o pagamento via Pix</div>
+        <div style="font-weight:700;color:#fff;font-size:.93rem">Finalize as inscrições</div>
+        <div style="font-size:.73rem;color:rgba(255,255,255,.7)">Realize o pagamento via Pix</div>
       </div>
     </div>
-
-    <div style="padding:18px">
-
-      <!-- Valor -->
-      <div style="text-align:center;margin-bottom:18px">
-        <div style="font-size:.7rem;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">Valor a pagar</div>
-        <div style="font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:700;color:var(--p)" id="s-valor">R$ 15,00</div>
-        <div style="font-size:.72rem;color:var(--t3);margin-top:2px" id="s-tipo-pass">Passaporte EBF</div>
+    <div style="padding:17px">
+      <div style="text-align:center;margin-bottom:16px">
+        <div style="font-size:.68rem;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">Valor total a pagar</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:700;color:var(--p)" id="s-valor-total">R$ 0</div>
+        <div style="font-size:.7rem;color:var(--t3);margin-top:2px" id="s-detalhe-total">—</div>
       </div>
 
-      <!-- Chave Pix -->
-      <div style="background:#f0fdf4;border:1.5px solid #86efac;border-radius:10px;padding:14px;margin-bottom:16px">
-        <div style="font-size:.68rem;font-weight:700;color:#15803d;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Chave Pix (E-mail)</div>
+      <div style="background:#f0fdf4;border:1.5px solid #86efac;border-radius:10px;padding:13px;margin-bottom:14px">
+        <div style="font-size:.66rem;font-weight:700;color:#15803d;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Chave Pix (E-mail)</div>
         <div style="display:flex;align-items:center;gap:10px">
-          <code id="pix-chave" style="flex:1;font-size:.82rem;font-weight:600;color:#15803d;word-break:break-all;background:none;border:none;padding:0">cordeirinhosdejesus.adtc@gmail.com</code>
+          <code id="pix-chave" style="flex:1;font-size:.8rem;font-weight:600;color:#15803d;word-break:break-all">cordeirinhosdejesus.adtc@gmail.com</code>
           <button onclick="copiarPix()" id="btn-copiar"
-            style="flex-shrink:0;background:#15803d;color:#fff;border:none;border-radius:7px;padding:8px 12px;font-size:.75rem;font-weight:700;cursor:pointer;font-family:'Outfit',sans-serif;transition:.15s;white-space:nowrap">
+            style="flex-shrink:0;background:#15803d;color:#fff;border:none;border-radius:7px;padding:8px 11px;font-size:.73rem;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap">
             📋 Copiar
           </button>
         </div>
       </div>
 
-      <!-- Instrução WhatsApp -->
-      <div style="background:#fff7ed;border:1.5px solid #fed7aa;border-radius:10px;padding:14px;margin-bottom:16px">
-        <div style="font-size:.68rem;font-weight:700;color:#c2410c;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">📲 Após o pagamento</div>
-        <p style="font-size:.82rem;color:#7c2d12;line-height:1.6;margin:0">
-          Envie o <strong>comprovante</strong> para o WhatsApp abaixo com o <strong>nome completo da criança</strong>:
+      <div style="background:#fff7ed;border:1.5px solid #fed7aa;border-radius:10px;padding:13px;margin-bottom:14px">
+        <div style="font-size:.66rem;font-weight:700;color:#c2410c;text-transform:uppercase;letter-spacing:.5px;margin-bottom:7px">📲 Após o pagamento</div>
+        <p style="font-size:.81rem;color:#7c2d12;line-height:1.6;margin:0">
+          Envie o <strong>comprovante</strong> para o WhatsApp com o <strong>nome completo de cada criança</strong>:
         </p>
         <a href="https://wa.me/5585999633460" target="_blank"
-          style="display:flex;align-items:center;justify-content:center;gap:8px;margin-top:12px;background:#25d366;color:#fff;padding:12px;border-radius:9px;text-decoration:none;font-weight:700;font-size:.88rem">
-          <span style="font-size:1.1rem">📱</span> (85) 99963-3460
+          style="display:flex;align-items:center;justify-content:center;gap:8px;margin-top:11px;background:#25d366;color:#fff;padding:12px;border-radius:9px;text-decoration:none;font-weight:700;font-size:.87rem">
+          <span>📱</span> (85) 99963-3460
         </a>
       </div>
 
-      <!-- Aviso -->
       <div style="display:flex;align-items:flex-start;gap:8px;background:#fef2f2;border-radius:8px;padding:10px 12px">
         <span style="font-size:.9rem;flex-shrink:0">⚠️</span>
-        <p style="font-size:.75rem;color:#991b1b;margin:0;line-height:1.5">
+        <p style="font-size:.74rem;color:#991b1b;margin:0;line-height:1.5">
           A vaga só é <strong>garantida após a confirmação do pagamento</strong> pela equipe.
-          Sem o envio do comprovante, a inscrição não será confirmada.
         </p>
       </div>
-
     </div>
   </div>
 
-  <!-- Badge confirmação -->
   <div style="text-align:center">
-    <div style="display:inline-flex;align-items:center;gap:6px;background:#dcfce7;color:#15803d;padding:6px 16px;border-radius:20px;font-size:.76rem;font-weight:700">
+    <div style="display:inline-flex;align-items:center;gap:6px;background:#dcfce7;color:#15803d;padding:6px 16px;border-radius:20px;font-size:.75rem;font-weight:700">
       ✓ Dados salvos com sucesso
     </div>
   </div>
-
 </div>
 
 <script>
@@ -410,227 +287,584 @@ const SB = supabase.createClient(
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVyZm13YXlsdXRpaHRiemZ3c3dhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU0MTQzNTAsImV4cCI6MjA5MDk5MDM1MH0.w-yBwnoc3zmvcoPwkljPG-c3YQbFZ2D96L_1qsvtiyg'
 );
 
-// ── VALORES PADRÃO (fallback se Supabase não carregar) ──
 let CFG = {
   passaporte_preco: '15',
   passaporte_desc:  'Acesso aos 3 dias, kit EBF e gincana',
-  passaporte_link:  '#',
   premium_preco:    '47',
   premium_desc:     'Tudo do Passaporte + camiseta oficial e brinde exclusivo',
-  premium_link:     '#',
-  prazo_lote1:      '',
   evento_data:      '17, 18 e 19 de Julho de 2026',
   formulario_ativo: 'sim',
   msg_encerrado:    'As inscrições estão encerradas.',
-  whatsapp_contato: '5585999999999',
+  whatsapp_contato: '5585999633460',
 };
 
-let passe = 'passaporte';
-let togs = { al:false, re:false, med:false, foto:true, emer:true };
+// passe é individual por criança
+// Array de crianças: cada item é um objeto com os dados
+let criancas = [];
+let proxId = 1;
 
+// ── INIT ──────────────────────────────────────────────
 async function init() {
   try {
-    const { data, error } = await SB.from('config_ebf').select('chave,valor');
-    if (!error && data && data.length > 0) {
-      data.forEach(r => { CFG[r.chave] = r.valor; });
-    }
-  } catch(e) {
-    console.log('Usando configurações padrão:', e.message);
-  }
+    const { data } = await SB.from('config_ebf').select('chave,valor');
+    if (data) data.forEach(r => { CFG[r.chave] = r.valor; });
+  } catch(e) {}
 
-  // Formulário fechado?
   if (CFG.formulario_ativo === 'nao') {
     document.getElementById('screen-loading').style.display = 'none';
-    document.getElementById('screen-fechado').style.display = 'block';
+    document.getElementById('screen-fechado').style.display = 'flex';
     document.getElementById('txt-fechado').textContent = CFG.msg_encerrado;
-    document.getElementById('link-wa').href = `https://wa.me/${CFG.whatsapp_contato}`;
+    document.getElementById('link-wa').href = 'https://wa.me/' + CFG.whatsapp_contato;
     return;
   }
 
-  // Preenche dados
   document.getElementById('h-data').textContent = CFG.evento_data;
-
-  document.getElementById('preco-p').innerHTML = `R$ ${CFG.passaporte_preco}<em>/criança</em>`;
-  document.getElementById('desc-p').textContent = CFG.passaporte_desc;
-
-  document.getElementById('preco-g').innerHTML = `R$ ${CFG.premium_preco}<em>/criança</em>`;
-  document.getElementById('desc-g').textContent = CFG.premium_desc;
-
-  if (CFG.prazo_lote1) {
-    document.getElementById('prazo-p').textContent = `Até ${CFG.prazo_lote1}`;
-    document.getElementById('prazo-g').textContent = `Até ${CFG.prazo_lote1}`;
-  }
-
-  atualizarBotao();
+  // preços renderizados individualmente por criança
 
   document.getElementById('screen-loading').style.display = 'none';
   document.getElementById('screen-form').style.display = 'block';
+
+  // Adicionar a primeira criança automaticamente
+  adicionarCrianca();
 }
 
-function selPass(p) {
-  passe = p;
-  document.getElementById('card-p').className = 'pc' + (p==='passaporte' ? ' sel-p' : '');
-  document.getElementById('card-g').className = 'pc' + (p==='premium' ? ' sel-g' : '');
-  atualizarBotao();
+// ── PASSAPORTE ────────────────────────────────────────
+// selPass global removido — passaporte é por criança
+
+// ── ADICIONAR CRIANÇA ─────────────────────────────────
+function adicionarCrianca() {
+  const id = proxId++;
+  const crianca = {
+    id, nome:'', nasc:'', sexo:'', pv:'nao', passe:'passaporte',
+    resp:'', paren:'', tel:'', email:'', end:'', bairro:'',
+    al:false, alergias:'',
+    re:false, restricoes:'',
+    med:false, medicamentos:'',
+    foto:true, emer:true,
+    contato_emer:'', tel_emer:'', obs:'',
+    preenchida: false,
+  };
+  criancas.push(crianca);
+  renderLista();
+  // Abrir o acordeão da criança recém-adicionada
+  setTimeout(() => {
+    const body = document.getElementById('child-body-' + id);
+    const arrow = document.getElementById('child-arrow-' + id);
+    if (body) { body.classList.add('open'); body.style.display = 'block'; }
+    if (arrow) arrow.classList.add('open');
+    // Scroll para o novo card
+    const card = document.getElementById('child-card-' + id);
+    if (card) card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }, 50);
 }
 
-function atualizarBotao() {
-  const btn = document.getElementById('btn-co');
-  const resNome = document.getElementById('res-nome');
-  const resPreco = document.getElementById('res-preco');
+// ── REMOVER CRIANÇA ───────────────────────────────────
+function removerCrianca(id) {
+  if (criancas.length === 1) {
+    alert('Você precisa ter ao menos uma criança na inscrição.');
+    return;
+  }
+  criancas = criancas.filter(c => c.id !== id);
+  renderLista();
+}
 
-  if (passe === 'passaporte') {
-    btn.className = 'btn-co tp';
-    btn.textContent = `Salvar dados e pagar R$ ${CFG.passaporte_preco} →`;
-    resNome.textContent = 'Passaporte EBF';
-    resPreco.textContent = `R$ ${CFG.passaporte_preco}`;
-    resPreco.style.color = 'var(--p)';
+// ── TOGGLE ACORDEÃO ───────────────────────────────────
+function toggleChild(id) {
+  const body  = document.getElementById('child-body-' + id);
+  const arrow = document.getElementById('child-arrow-' + id);
+  const isOpen = body.classList.contains('open');
+  if (isOpen) {
+    body.classList.remove('open');
+    body.style.display = 'none';
+    arrow.classList.remove('open');
+    salvarCrianca(id); // salva ao fechar
   } else {
-    btn.className = 'btn-co tg';
-    btn.textContent = `Salvar dados e pagar R$ ${CFG.premium_preco} →`;
-    resNome.textContent = 'Passaporte Premium';
-    resPreco.textContent = `R$ ${CFG.premium_preco}`;
-    resPreco.style.color = 'var(--g3)';
+    body.classList.add('open');
+    body.style.display = 'block';
+    arrow.classList.add('open');
   }
 }
 
-function selRo(v) {
-  document.getElementById('ro-nao').classList.toggle('on', v==='nao');
-  document.getElementById('ro-sim').classList.toggle('on', v==='sim');
+// ── SALVAR DADOS DA CRIANÇA DO DOM ────────────────────
+function salvarCrianca(id) {
+  const c = criancas.find(x => x.id === id);
+  if (!c) return;
+  const g = (sid) => { const el = document.getElementById(sid + '-' + id); return el ? el.value.trim() : ''; };
+  const gb = (sid) => { const el = document.getElementById(sid + '-' + id); return el ? el.classList.contains('on') : false; };
+
+  c.nome   = g('nome');
+  c.nasc   = g('nasc');
+  c.sexo   = g('sexo');
+  // passe já é salvo diretamente via selPassCrianca
+  c.resp   = g('resp');
+  c.paren  = g('paren');
+  c.tel    = g('tel');
+  c.email  = g('email');
+  c.end    = g('end');
+  c.bairro = g('bairro');
+
+  // Primeira vez
+  const pvSim = document.getElementById('pv-sim-' + id);
+  c.pv = pvSim && pvSim.classList.contains('on') ? 'sim' : 'nao';
+
+  c.al         = gb('tog-al');
+  c.alergias   = g('alerg');
+  c.re         = gb('tog-re');
+  c.restricoes = g('restr');
+  c.med        = gb('tog-med');
+  c.medicamentos = g('meds');
+  c.foto       = gb('tog-foto');
+  c.emer       = gb('tog-emer');
+  c.contato_emer = g('c-emerg');
+  c.tel_emer   = g('t-emerg');
+  c.obs        = g('obs');
+
+  c.preenchida = !!(c.nome && c.nasc && c.resp && c.tel);
+  renderLista();
 }
 
-function togF(k) {
-  togs[k] = !togs[k];
-  document.getElementById('tog-'+k).classList.toggle('on', togs[k]);
-  document.getElementById('ext-'+k).style.display = togs[k] ? 'block' : 'none';
+// ── RENDER LISTA ──────────────────────────────────────
+function renderLista() {
+  const lista = document.getElementById('lista-criancas');
+
+  // Preservar estado dos acordeões abertos
+  const abertos = {};
+  criancas.forEach(c => {
+    const body = document.getElementById('child-body-' + c.id);
+    abertos[c.id] = body && body.classList.contains('open');
+  });
+
+  lista.innerHTML = criancas.map((c, idx) => {
+    const numLabel = 'Criança ' + (idx + 1);
+    const nomeDisplay = c.nome || numLabel;
+    const nascDisplay = c.nasc ? new Date(c.nasc + 'T12:00:00').toLocaleDateString('pt-BR') : '';
+    const badgeClass  = c.preenchida ? 'ok' : 'pend';
+    const badgeTxt    = c.preenchida ? '✓ OK' : 'Pendente';
+    const isOpen      = abertos[c.id] !== false ? abertos[c.id] : !c.preenchida;
+
+    return `<div class="child-card" id="child-card-${c.id}">
+      <div class="child-header" onclick="toggleChild(${c.id})">
+        <div class="child-avatar">${nomeDisplay[0]?.toUpperCase() || (idx+1)}</div>
+        <div class="child-info">
+          <div class="child-nome">${nomeDisplay}</div>
+          <div class="child-sub">${c.resp ? 'Resp: '+c.resp : (nascDisplay || 'Preencha os dados')}</div>
+        </div>
+        <span class="child-badge ${badgeClass}">${badgeTxt}</span>
+        ${criancas.length > 1 ? `<button class="child-del" onclick="event.stopPropagation();removerCrianca(${c.id})" title="Remover">✕</button>` : ''}
+        <span class="child-arrow ${isOpen ? 'open' : ''}" id="child-arrow-${c.id}">▼</span>
+      </div>
+      <div class="child-body ${isOpen ? 'open' : ''}" id="child-body-${c.id}" style="display:${isOpen ? 'block' : 'none'}">
+
+        <div class="sec" style="margin-bottom:10px">
+          <div class="sec-h"><span>👦</span><h2>Dados da Criança ${idx + 1}</h2></div>
+          <div class="sec-b">
+            <div class="f">
+              <label>Nome completo <span class="req">*</span></label>
+              <input id="nome-${c.id}" value="${c.nome}" placeholder="Nome completo da criança" oninput="atualizarNome(${c.id})">
+            </div>
+            <div class="fr">
+              <div class="f">
+                <label>Data de nascimento <span class="req">*</span></label>
+                <input id="nasc-${c.id}" type="date" value="${c.nasc}">
+              </div>
+              <div class="f">
+                <label>Sexo</label>
+                <select id="sexo-${c.id}">
+                  <option value="" ${!c.sexo?'selected':''}>Não informar</option>
+                  <option value="M" ${c.sexo==='M'?'selected':''}>Masculino</option>
+                  <option value="F" ${c.sexo==='F'?'selected':''}>Feminino</option>
+                </select>
+              </div>
+            </div>
+            <div class="f">
+              <label>Primeira vez na EBF? <span class="req">*</span></label>
+              <div class="ro-group">
+                <label class="ro ${c.pv==='nao'?'on':''}" id="pv-nao-${c.id}" onclick="selPv(${c.id},'nao')">
+                  <input type="radio" name="pv-${c.id}" value="nao"> Não, já participou
+                </label>
+                <label class="ro ${c.pv==='sim'?'on':''}" id="pv-sim-${c.id}" onclick="selPv(${c.id},'sim')">
+                  <input type="radio" name="pv-${c.id}" value="sim"> Sim, primeira vez
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sec" style="margin-bottom:10px">
+          <div class="sec-h"><span>👨‍👧</span><h2>Responsável pela Criança ${idx + 1}</h2></div>
+          <div class="sec-b">
+            <div class="f">
+              <label>Nome do responsável <span class="req">*</span></label>
+              <input id="resp-${c.id}" value="${c.resp}" placeholder="Nome completo">
+            </div>
+            <div class="fr">
+              <div class="f">
+                <label>Parentesco</label>
+                <select id="paren-${c.id}">
+                  <option value="" ${!c.paren?'selected':''}>Selecionar</option>
+                  <option ${c.paren==='Pai'?'selected':''}>Pai</option>
+                  <option ${c.paren==='Mãe'?'selected':''}>Mãe</option>
+                  <option ${c.paren==='Avó/Avô'?'selected':''}>Avó/Avô</option>
+                  <option ${c.paren==='Tio/Tia'?'selected':''}>Tio/Tia</option>
+                  <option ${c.paren==='Outro'?'selected':''}>Outro</option>
+                </select>
+              </div>
+              <div class="f">
+                <label>WhatsApp <span class="req">*</span></label>
+                <input id="tel-${c.id}" value="${c.tel}" type="tel" placeholder="(85) 9…">
+              </div>
+            </div>
+            <div class="f">
+              <label>E-mail</label>
+              <input id="email-${c.id}" value="${c.email}" type="email" placeholder="email@exemplo.com">
+            </div>
+            <div class="fr">
+              <div class="f">
+                <label>Endereço / Rua</label>
+                <input id="end-${c.id}" value="${c.end}" placeholder="Rua, número">
+              </div>
+              <div class="f">
+                <label>Bairro</label>
+                <input id="bairro-${c.id}" value="${c.bairro}" placeholder="Bairro">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sec" style="margin-bottom:10px">
+          <div class="sec-h"><span>🏥</span><h2>Saúde e Necessidades Especiais</h2></div>
+          <div class="sec-b">
+            <div class="f">
+              <div class="tog-row">
+                <span class="tog-lbl">A criança tem alguma alergia alimentar?</span>
+                <button class="tog ${c.al?'on':''}" id="tog-al-${c.id}" onclick="togCrianca(${c.id},'al')" type="button"></button>
+              </div>
+              <div class="ext" id="ext-al-${c.id}" style="display:${c.al?'block':'none'}">
+                <div class="f"><label>Descreva as alergias <span class="req">*</span></label>
+                  <textarea id="alerg-${c.id}" placeholder="Ex: amendoim, leite...">${c.alergias}</textarea></div>
+              </div>
+            </div>
+            <div class="f">
+              <div class="tog-row">
+                <span class="tog-lbl">Tem restrição médica ou necessidade especial?</span>
+                <button class="tog ${c.re?'on':''}" id="tog-re-${c.id}" onclick="togCrianca(${c.id},'re')" type="button"></button>
+              </div>
+              <div class="ext" id="ext-re-${c.id}" style="display:${c.re?'block':'none'}">
+                <div class="f"><label>Descreva as restrições</label>
+                  <textarea id="restr-${c.id}" placeholder="Descreva...">${c.restricoes}</textarea></div>
+              </div>
+            </div>
+            <div class="f">
+              <div class="tog-row">
+                <span class="tog-lbl">A criança usa algum medicamento?</span>
+                <button class="tog ${c.med?'on':''}" id="tog-med-${c.id}" onclick="togCrianca(${c.id},'med')" type="button"></button>
+              </div>
+              <div class="ext" id="ext-med-${c.id}" style="display:${c.med?'block':'none'}">
+                <div class="f"><label>Medicamento e horário</label>
+                  <textarea id="meds-${c.id}" placeholder="Ex: Ritalina 10mg — 8h">${c.medicamentos}</textarea></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sec" style="margin-bottom:10px">
+          <div class="sec-h"><span>📋</span><h2>Autorizações</h2></div>
+          <div class="sec-b">
+            <div class="f">
+              <div class="tog-row">
+                <span class="tog-lbl">Autorizo fotos e vídeos nas redes sociais da igreja</span>
+                <button class="tog ${c.foto?'on':''}" id="tog-foto-${c.id}" onclick="togCriancaS(${c.id},'foto')" type="button"></button>
+              </div>
+            </div>
+            <div class="f">
+              <div class="tog-row">
+                <span class="tog-lbl">Autorizo decisões médicas de emergência pela equipe</span>
+                <button class="tog ${c.emer?'on':''}" id="tog-emer-${c.id}" onclick="togCriancaS(${c.id},'emer')" type="button"></button>
+              </div>
+            </div>
+            <div class="fr">
+              <div class="f"><label>Contato de emergência</label>
+                <input id="c-emerg-${c.id}" value="${c.contato_emer}" placeholder="Nome"></div>
+              <div class="f"><label>Telefone de emergência</label>
+                <input id="t-emerg-${c.id}" value="${c.tel_emer}" placeholder="(85) 9…"></div>
+            </div>
+            <div class="f"><label>Observações adicionais</label>
+              <textarea id="obs-${c.id}" placeholder="Alguma informação adicional?">${c.obs}</textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="sec" style="margin-bottom:10px">
+          <div class="sec-h"><span>🎫</span><h2>Passaporte</h2></div>
+          <div class="sec-b">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+              <div class="pc ${c.passe==='passaporte'?'sel-p':''}" id="card-p-${c.id}" onclick="selPassCrianca(${c.id},'passaporte')">
+                <div class="pc-check">✓</div>
+                <div class="pc-tag pc-tag-p">EBF 2026</div>
+                <div class="pc-name">Passaporte EBF</div>
+                <div class="pc-price">R$ ${CFG.passaporte_preco}<em>/criança</em></div>
+                <div class="pc-desc">${CFG.passaporte_desc}</div>
+              </div>
+              <div class="pc ${c.passe==='premium'?'sel-g':''}" id="card-g-${c.id}" onclick="selPassCrianca(${c.id},'premium')">
+                <div class="pc-check">✓</div>
+                <div class="pc-tag pc-tag-g">PREMIUM</div>
+                <div class="pc-name">Passaporte Premium</div>
+                <div class="pc-price">R$ ${CFG.premium_preco}<em>/criança</em></div>
+                <div class="pc-desc">${CFG.premium_desc}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button onclick="salvarCrianca(${c.id})" type="button"
+          style="width:100%;padding:11px;background:var(--p);color:#fff;border:none;border-radius:var(--rs);font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:600;cursor:pointer;transition:.15s">
+          ✓ Salvar dados desta criança
+        </button>
+
+      </div>
+    </div>`;
+  }).join('');
+
+  atualizarTotal();
 }
 
-function togS(k) {
-  togs[k] = !togs[k];
-  document.getElementById('tog-'+k).classList.toggle('on', togs[k]);
+// ── ATUALIZAR NOME AO DIGITAR ─────────────────────────
+function atualizarNome(id) {
+  const c = criancas.find(x => x.id === id);
+  if (!c) return;
+  const el = document.getElementById('nome-' + id);
+  if (el) {
+    c.nome = el.value;
+    // Atualizar só o nome no header sem re-render completo
+    const nomeEl = document.querySelector('#child-card-' + id + ' .child-nome');
+    if (nomeEl) nomeEl.textContent = c.nome || ('Criança ' + (criancas.indexOf(c) + 1));
+    const avatarEl = document.querySelector('#child-card-' + id + ' .child-avatar');
+    if (avatarEl) avatarEl.textContent = (c.nome || 'C')[0].toUpperCase();
+  }
 }
 
-function idade(d) {
+// ── SELECIONAR PRIMEIRA VEZ ───────────────────────────
+function selPassCrianca(id, p) {
+  const crianca = criancas.find(x => x.id === id);
+  if (!crianca) return;
+  crianca.passe = p;
+  const cp = document.getElementById('card-p-' + id);
+  const cg = document.getElementById('card-g-' + id);
+  if (cp) cp.className = 'pc' + (p === 'passaporte' ? ' sel-p' : '');
+  if (cg) cg.className = 'pc' + (p === 'premium' ? ' sel-g' : '');
+  atualizarTotal();
+}
+
+function selPv(id, v) {
+  const c = criancas.find(x => x.id === id);
+  if (c) c.pv = v;
+  document.getElementById('pv-nao-' + id)?.classList.toggle('on', v === 'nao');
+  document.getElementById('pv-sim-' + id)?.classList.toggle('on', v === 'sim');
+}
+
+// ── TOGGLE COM EXTENSÃO ───────────────────────────────
+function togCrianca(id, k) {
+  const c = criancas.find(x => x.id === id);
+  if (!c) return;
+  c[k] = !c[k];
+  document.getElementById('tog-' + k + '-' + id)?.classList.toggle('on', c[k]);
+  const ext = document.getElementById('ext-' + k + '-' + id);
+  if (ext) ext.style.display = c[k] ? 'block' : 'none';
+}
+
+// ── TOGGLE SIMPLES ────────────────────────────────────
+function togCriancaS(id, k) {
+  const c = criancas.find(x => x.id === id);
+  if (!c) return;
+  c[k] = !c[k];
+  document.getElementById('tog-' + k + '-' + id)?.classList.toggle('on', c[k]);
+}
+
+// ── ATUALIZAR TOTAL ───────────────────────────────────
+function atualizarTotal() {
+  const n = criancas.length;
+  // Calcular total somando o preço individual de cada criança
+  let total = 0;
+  let qtdPremium = 0;
+  criancas.forEach(cr => {
+    if (cr.passe === 'premium') {
+      total += parseInt(CFG.premium_preco) || 47;
+      qtdPremium++;
+    } else {
+      total += parseInt(CFG.passaporte_preco) || 15;
+    }
+  });
+  const qtdPadrao = n - qtdPremium;
+
+  document.getElementById('qtd-label').textContent = n + ' criança(s)';
+  document.getElementById('total-bar').style.display = n > 0 ? 'flex' : 'none';
+  document.getElementById('total-valor').textContent = 'R$ ' + total;
+
+  let detalhe = '';
+  if (qtdPadrao > 0 && qtdPremium > 0) {
+    detalhe = qtdPadrao + '× R$' + (CFG.passaporte_preco||15) + ' + ' + qtdPremium + '× R$' + (CFG.premium_preco||47);
+  } else if (qtdPremium > 0) {
+    detalhe = n + ' × R$' + (CFG.premium_preco||47) + ' (Premium)';
+  } else {
+    detalhe = n + ' × R$' + (CFG.passaporte_preco||15) + ' (Passaporte EBF)';
+  }
+  document.getElementById('total-detalhe').textContent = detalhe;
+
+  const btn = document.getElementById('btn-co');
+  btn.className = 'btn-co tp';
+  if (n === 0) {
+    btn.textContent = 'Adicione ao menos uma criança';
+    btn.disabled = true;
+  } else {
+    btn.textContent = 'Confirmar ' + n + ' inscrição' + (n > 1 ? 'ões' : '') + ' · R$ ' + total + ' →';
+    btn.disabled = false;
+  }
+}
+
+// ── CALCULAR IDADE ────────────────────────────────────
+function calcIdade(d) {
   if (!d) return null;
   const h = new Date(), n = new Date(d);
   let a = h.getFullYear() - n.getFullYear();
-  if (h.getMonth() < n.getMonth() || (h.getMonth()===n.getMonth() && h.getDate()<n.getDate())) a--;
+  if (h.getMonth() < n.getMonth() || (h.getMonth() === n.getMonth() && h.getDate() < n.getDate())) a--;
   return a;
 }
 
+// ── ENVIAR ────────────────────────────────────────────
 async function enviar() {
-  const f1 = document.getElementById('ferr');
-  const f2 = document.getElementById('ferr2');
-  f1.style.display = f2.style.display = 'none';
+  // Salvar dados de todas as crianças abertas
+  criancas.forEach(c => salvarCrianca(c.id));
 
-  const nome = document.getElementById('nome').value.trim();
-  const nasc  = document.getElementById('nasc').value;
-  const resp  = document.getElementById('resp').value.trim();
-  const tel   = document.getElementById('tel').value.trim();
+  const ferr  = document.getElementById('ferr');
+  ferr.style.display = 'none';
 
+  // Validar crianças e responsáveis
   const erros = [];
-  if (!nome) erros.push('Nome da criança');
-  if (!nasc)  erros.push('Data de nascimento');
-  if (!resp)  erros.push('Nome do responsável');
-  if (!tel)   erros.push('WhatsApp');
-  if (togs.al && !document.getElementById('alerg').value.trim()) erros.push('Descrição das alergias');
+  criancas.forEach((c, i) => {
+    if (!c.nome)  erros.push('Nome da criança ' + (i + 1));
+    if (!c.nasc)  erros.push('Data de nascimento da criança ' + (i + 1));
+    if (!c.resp)  erros.push('Nome do responsável da criança ' + (i + 1));
+    if (!c.tel)   erros.push('WhatsApp do responsável da criança ' + (i + 1));
+    if (c.al && !c.alergias) erros.push('Descrição de alergias da criança ' + (i + 1));
+  });
 
   if (erros.length) {
-    const msg = `Preencha: ${erros.join(', ')}.`;
-    f1.textContent = f2.textContent = msg;
-    f1.style.display = f2.style.display = 'block';
+    ferr.textContent = 'Corrija: ' + erros.join('; ') + '.';
+    ferr.style.display = 'block';
+    // Abrir o acordeão da criança com erro
+    criancas.forEach((c, i) => {
+      if (!c.nome || !c.nasc || (c.al && !c.alergias)) {
+        const body = document.getElementById('child-body-' + c.id);
+        const arrow = document.getElementById('child-arrow-' + c.id);
+        if (body) { body.classList.add('open'); body.style.display = 'block'; }
+        if (arrow) arrow.classList.add('open');
+      }
+    });
     window.scrollTo({ top: 0, behavior: 'smooth' });
     return;
   }
 
   const btn = document.getElementById('btn-co');
   btn.disabled = true;
-  btn.textContent = 'Salvando…';
+  btn.disabled = true;
+  btn.textContent = 'Salvando ' + criancas.length + ' inscrição(ões)…';
 
-  const pv = document.querySelector('input[name="pv"]:checked')?.value || 'nao';
-
-  const payload = {
-    nome,
-    data_nasc: nasc || null,
-    idade: nasc ? idade(nasc) : null,
-    sexo:       document.getElementById('sexo').value || null,
-    responsavel: resp,
-    parentesco:  document.getElementById('paren').value || null,
-    telefone: tel,
-    email:    document.getElementById('email').value.trim() || null,
-    endereco: document.getElementById('end').value.trim() || null,
-    bairro:   document.getElementById('bairro').value.trim() || null,
-    tipo: 'matriculado',
-    passaporte: passe,
-    primeira_vez: pv,
-    tem_alergia:   togs.al ? 'sim' : 'nao',
-    alergias:      togs.al ? (document.getElementById('alerg').value.trim() || null) : null,
-    tem_restricao: togs.re ? 'sim' : 'nao',
-    restricoes:    togs.re ? (document.getElementById('restr').value.trim() || null) : null,
-    medicamentos:  togs.med ? (document.getElementById('meds').value.trim() || null) : null,
-    autoriza_foto:       togs.foto ? 'sim' : 'nao',
-    autoriza_emergencia: togs.emer ? 'sim' : 'nao',
-    contato_emergencia:  document.getElementById('c-emerg').value.trim() || null,
-    tel_emergencia:      document.getElementById('t-emerg').value.trim() || null,
-    observacoes: document.getElementById('obs').value.trim() || null,
-    status: 'pendente',
+  // Montar payloads — uma linha por criança com seu próprio responsável
+  const payloads = criancas.map(c => ({
+    nome:          c.nome,
+    data_nasc:     c.nasc || null,
+    idade:         calcIdade(c.nasc),
+    sexo:          c.sexo || null,
+    responsavel:   c.resp,
+    parentesco:    c.paren || null,
+    telefone:      c.tel,
+    email:         c.email || null,
+    endereco:      c.end || null,
+    bairro:        c.bairro || null,
+    tipo:          'matriculado',
+    passaporte:    c.passe || 'passaporte',
+    primeira_vez:  c.pv,
+    tem_alergia:   c.al ? 'sim' : 'nao',
+    alergias:      c.al ? (c.alergias || null) : null,
+    tem_restricao: c.re ? 'sim' : 'nao',
+    restricoes:    c.re ? (c.restricoes || null) : null,
+    medicamentos:  c.med ? (c.medicamentos || null) : null,
+    autoriza_foto:       c.foto ? 'sim' : 'nao',
+    autoriza_emergencia: c.emer ? 'sim' : 'nao',
+    contato_emergencia:  c.contato_emer || null,
+    tel_emergencia:      c.tel_emer || null,
+    observacoes:         c.obs || null,
+    status:    'pendente',
     importado: false,
-  };
+  }));
 
   try {
-    console.log('Enviando payload:', payload);
-    const { data, error } = await SB.from('inscricoes_ebf').insert(payload).select();
-    console.log('Resposta Supabase:', { data, error });
+    // Inserir todas de uma vez — cada criança vira um registro separado
+    const { error } = await SB.from('inscricoes_ebf').insert(payloads);
     if (error) throw error;
 
-    const link = passe === 'passaporte' ? CFG.passaporte_link : CFG.premium_link;
-
-    document.getElementById('screen-form').style.display = 'none';
-    document.getElementById('screen-success').style.display = 'block';
-    // Mostrar tela de sucesso com pix
-    document.getElementById('s-nome').textContent = nome;
-    
-    // Atualizar valor e tipo conforme passaporte
-    const isPremiun = passaporte === 'premium';
-    document.getElementById('s-valor').textContent = isPremiun ? 'R$ 47,00' : 'R$ 15,00';
-    document.getElementById('s-tipo-pass').textContent = isPremiun ? 'Passaporte Premium' : 'Passaporte EBF';
-
-    // Mostrar tela de sucesso
-    ['screen-loading','screen-fechado','screen-form'].forEach(id=>{
-      const el = document.getElementById(id);
-      if(el) el.style.display='none';
+    // Tela de sucesso
+    let totalFinal = 0;
+    let qtdPremFinal = 0;
+    criancas.forEach(cr => {
+      if(cr.passe === 'premium'){ totalFinal += parseInt(CFG.premium_preco)||47; qtdPremFinal++; }
+      else { totalFinal += parseInt(CFG.passaporte_preco)||15; }
     });
-    document.getElementById('screen-success').style.display='block';
-    window.scrollTo({top:0, behavior:'smooth'});
+    const qtdPadFinal = criancas.length - qtdPremFinal;
+    let detalheFinal = '';
+    if(qtdPadFinal > 0 && qtdPremFinal > 0){
+      detalheFinal = qtdPadFinal+'× R$'+(CFG.passaporte_preco||15)+' (EBF) + '+qtdPremFinal+'× R$'+(CFG.premium_preco||47)+' (Premium)';
+    } else if(qtdPremFinal > 0){
+      detalheFinal = criancas.length+' criança(s) × R$'+(CFG.premium_preco||47)+' (Premium)';
+    } else {
+      detalheFinal = criancas.length+' criança(s) × R$'+(CFG.passaporte_preco||15)+' (Passaporte EBF)';
+    }
+
+    document.getElementById('s-qtd').textContent = criancas.length;
+    document.getElementById('s-valor-total').textContent = 'R$ ' + totalFinal + ',00';
+    document.getElementById('s-detalhe-total').textContent = detalheFinal;
+
+    // Lista de nomes
+    document.getElementById('s-lista-nomes').innerHTML =
+      '<div style="font-size:.68rem;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Crianças inscritas</div>'
+      + criancas.map((c, i) =>
+        '<div style="display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid var(--bd)">'
+        + '<div style="width:24px;height:24px;border-radius:6px;background:var(--p);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;flex-shrink:0">' + (i + 1) + '</div>'
+        + '<div style="font-weight:500;font-size:.85rem">' + c.nome + '</div>'
+        + '<span style="margin-left:auto;background:#dcfce7;color:#15803d;padding:1px 7px;border-radius:4px;font-size:.63rem;font-weight:700">✓</span>'
+        + '</div>'
+      ).join('');
+
+    ['screen-form'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.style.display = 'none';
+    });
+    document.getElementById('screen-success').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
   } catch(e) {
-    console.error('Erro detalhado:', e);
-    const msg = e?.message || e?.details || JSON.stringify(e) || 'Erro desconhecido';
-    f2.textContent = `Erro ao salvar: ${msg}`;
-    f2.style.display = 'block';
+    ferr.textContent = 'Erro ao salvar: ' + (e?.message || 'Tente novamente.');
+    ferr.style.display = 'block';
     btn.disabled = false;
-    atualizarBotao();
+    atualizarTotal();
   }
 }
 
-function copiarPix(){
+// ── COPIAR PIX ────────────────────────────────────────
+function copiarPix() {
   const chave = document.getElementById('pix-chave').textContent.trim();
-  navigator.clipboard.writeText(chave).then(()=>{
-    const btn = document.getElementById('btn-copiar');
+  const btn = document.getElementById('btn-copiar');
+  navigator.clipboard.writeText(chave).then(() => {
     btn.textContent = '✓ Copiado!';
     btn.style.background = '#166534';
-    setTimeout(()=>{ btn.textContent = '📋 Copiar'; btn.style.background = '#15803d'; }, 2500);
-  }).catch(()=>{
-    // Fallback para dispositivos sem clipboard API
+    setTimeout(() => { btn.textContent = '📋 Copiar'; btn.style.background = '#15803d'; }, 2500);
+  }).catch(() => {
     const el = document.createElement('textarea');
-    el.value = chave;
-    el.style.position = 'fixed'; el.style.opacity = '0';
-    document.body.appendChild(el);
-    el.select();
-    document.execCommand('copy');
+    el.value = chave; el.style.position = 'fixed'; el.style.opacity = '0';
+    document.body.appendChild(el); el.select(); document.execCommand('copy');
     document.body.removeChild(el);
-    const btn = document.getElementById('btn-copiar');
     btn.textContent = '✓ Copiado!';
-    setTimeout(()=>{ btn.textContent = '📋 Copiar'; }, 2500);
+    setTimeout(() => { btn.textContent = '📋 Copiar'; }, 2500);
   });
 }
 
