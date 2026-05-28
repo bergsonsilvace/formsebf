@@ -173,7 +173,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--t1);font-
         <div class="pc-check">✓</div>
         <div class="pc-tag pc-tag-p">EBF 2026</div>
         <div class="pc-name">Passaporte EBF</div>
-        <div class="pc-price" id="preco-p">R$ 27<em>/criança</em></div>
+        <div class="pc-price" id="preco-p">R$ 15<em>/criança</em></div>
         <div class="pc-desc" id="desc-p">Acesso aos 3 dias, kit EBF e gincana</div>
         <div class="pc-prazo" id="prazo-p"></div>
       </div>
@@ -316,7 +316,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--t1);font-
         Você selecionou<br>
         <strong id="res-nome">Passaporte EBF</strong>
       </div>
-      <div class="preco-badge" id="res-preco" style="color:var(--p)">R$ 27</div>
+      <div class="preco-badge" id="res-preco" style="color:var(--p)">R$ 15</div>
     </div>
     <div class="ferr" id="ferr2"></div>
     <button class="btn-co tp" id="btn-co" onclick="enviar()">
@@ -329,15 +329,79 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--t1);font-
   </div>
 </div>
 
-<div id="screen-success">
-  <div class="suc-ico">🎉</div>
-  <div class="suc-card">
-    <h2>Dados recebidos!</h2>
-    <p>As informações de <strong id="s-nome">—</strong> foram salvas com sucesso.<br>
-    Você será redirecionado para o pagamento em instantes…<br>
-    Se não acontecer, <a id="s-link" href="#" style="color:var(--p);font-weight:700">clique aqui</a>.</p>
-    <div class="suc-badge">✓ Dados salvos</div>
+<div id="screen-success" style="display:none;padding:20px 16px;max-width:480px;margin:0 auto">
+
+  <!-- Cabeçalho -->
+  <div style="text-align:center;margin-bottom:24px">
+    <div style="font-size:2.8rem;margin-bottom:10px">✅</div>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--p);margin-bottom:6px">Inscrição recebida!</h2>
+    <p style="font-size:.84rem;color:var(--t2)">Os dados de <strong id="s-nome" style="color:var(--ink)">—</strong> foram salvos com sucesso.</p>
   </div>
+
+  <!-- Card Pix -->
+  <div style="background:var(--surf);border-radius:14px;border:1.5px solid var(--bd);overflow:hidden;margin-bottom:14px">
+
+    <!-- Topo -->
+    <div style="background:var(--p);padding:14px 18px;display:flex;align-items:center;gap:10px">
+      <div style="font-size:1.4rem">💰</div>
+      <div>
+        <div style="font-weight:700;color:#fff;font-size:.95rem">Finalize sua inscrição</div>
+        <div style="font-size:.75rem;color:rgba(255,255,255,.7)">Realize o pagamento via Pix</div>
+      </div>
+    </div>
+
+    <div style="padding:18px">
+
+      <!-- Valor -->
+      <div style="text-align:center;margin-bottom:18px">
+        <div style="font-size:.7rem;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">Valor a pagar</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:700;color:var(--p)" id="s-valor">R$ 15,00</div>
+        <div style="font-size:.72rem;color:var(--t3);margin-top:2px" id="s-tipo-pass">Passaporte EBF</div>
+      </div>
+
+      <!-- Chave Pix -->
+      <div style="background:#f0fdf4;border:1.5px solid #86efac;border-radius:10px;padding:14px;margin-bottom:16px">
+        <div style="font-size:.68rem;font-weight:700;color:#15803d;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Chave Pix (E-mail)</div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <code id="pix-chave" style="flex:1;font-size:.82rem;font-weight:600;color:#15803d;word-break:break-all;background:none;border:none;padding:0">cordeirinhosdejesus.adtc@gmail.com</code>
+          <button onclick="copiarPix()" id="btn-copiar"
+            style="flex-shrink:0;background:#15803d;color:#fff;border:none;border-radius:7px;padding:8px 12px;font-size:.75rem;font-weight:700;cursor:pointer;font-family:'Outfit',sans-serif;transition:.15s;white-space:nowrap">
+            📋 Copiar
+          </button>
+        </div>
+      </div>
+
+      <!-- Instrução WhatsApp -->
+      <div style="background:#fff7ed;border:1.5px solid #fed7aa;border-radius:10px;padding:14px;margin-bottom:16px">
+        <div style="font-size:.68rem;font-weight:700;color:#c2410c;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">📲 Após o pagamento</div>
+        <p style="font-size:.82rem;color:#7c2d12;line-height:1.6;margin:0">
+          Envie o <strong>comprovante</strong> para o WhatsApp abaixo com o <strong>nome completo da criança</strong>:
+        </p>
+        <a href="https://wa.me/5585999633460" target="_blank"
+          style="display:flex;align-items:center;justify-content:center;gap:8px;margin-top:12px;background:#25d366;color:#fff;padding:12px;border-radius:9px;text-decoration:none;font-weight:700;font-size:.88rem">
+          <span style="font-size:1.1rem">📱</span> (85) 99963-3460
+        </a>
+      </div>
+
+      <!-- Aviso -->
+      <div style="display:flex;align-items:flex-start;gap:8px;background:#fef2f2;border-radius:8px;padding:10px 12px">
+        <span style="font-size:.9rem;flex-shrink:0">⚠️</span>
+        <p style="font-size:.75rem;color:#991b1b;margin:0;line-height:1.5">
+          A vaga só é <strong>garantida após a confirmação do pagamento</strong> pela equipe.
+          Sem o envio do comprovante, a inscrição não será confirmada.
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Badge confirmação -->
+  <div style="text-align:center">
+    <div style="display:inline-flex;align-items:center;gap:6px;background:#dcfce7;color:#15803d;padding:6px 16px;border-radius:20px;font-size:.76rem;font-weight:700">
+      ✓ Dados salvos com sucesso
+    </div>
+  </div>
+
 </div>
 
 <script>
@@ -348,7 +412,7 @@ const SB = supabase.createClient(
 
 // ── VALORES PADRÃO (fallback se Supabase não carregar) ──
 let CFG = {
-  passaporte_preco: '27',
+  passaporte_preco: '15',
   passaporte_desc:  'Acesso aos 3 dias, kit EBF e gincana',
   passaporte_link:  '#',
   premium_preco:    '47',
@@ -523,13 +587,21 @@ async function enviar() {
 
     document.getElementById('screen-form').style.display = 'none';
     document.getElementById('screen-success').style.display = 'block';
+    // Mostrar tela de sucesso com pix
     document.getElementById('s-nome').textContent = nome;
-    document.getElementById('s-link').href = link;
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    
+    // Atualizar valor e tipo conforme passaporte
+    const isPremiun = passaporte === 'premium';
+    document.getElementById('s-valor').textContent = isPremiun ? 'R$ 47,00' : 'R$ 15,00';
+    document.getElementById('s-tipo-pass').textContent = isPremiun ? 'Passaporte Premium' : 'Passaporte EBF';
 
-    if (link && link !== '#') {
-      setTimeout(() => { window.location.href = link; }, 1500);
-    }
+    // Mostrar tela de sucesso
+    ['screen-loading','screen-fechado','screen-form'].forEach(id=>{
+      const el = document.getElementById(id);
+      if(el) el.style.display='none';
+    });
+    document.getElementById('screen-success').style.display='block';
+    window.scrollTo({top:0, behavior:'smooth'});
   } catch(e) {
     console.error('Erro detalhado:', e);
     const msg = e?.message || e?.details || JSON.stringify(e) || 'Erro desconhecido';
@@ -538,6 +610,28 @@ async function enviar() {
     btn.disabled = false;
     atualizarBotao();
   }
+}
+
+function copiarPix(){
+  const chave = document.getElementById('pix-chave').textContent.trim();
+  navigator.clipboard.writeText(chave).then(()=>{
+    const btn = document.getElementById('btn-copiar');
+    btn.textContent = '✓ Copiado!';
+    btn.style.background = '#166534';
+    setTimeout(()=>{ btn.textContent = '📋 Copiar'; btn.style.background = '#15803d'; }, 2500);
+  }).catch(()=>{
+    // Fallback para dispositivos sem clipboard API
+    const el = document.createElement('textarea');
+    el.value = chave;
+    el.style.position = 'fixed'; el.style.opacity = '0';
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+    const btn = document.getElementById('btn-copiar');
+    btn.textContent = '✓ Copiado!';
+    setTimeout(()=>{ btn.textContent = '📋 Copiar'; }, 2500);
+  });
 }
 
 init();
