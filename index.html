@@ -605,13 +605,7 @@ function renderLista() {
                 <div class="pc-price">R$ ${CFG.passaporte_preco}<em>/criança</em></div>
                 <div class="pc-desc">${CFG.passaporte_desc}</div>
               </div>
-              <div class="pc ${c.passe==='premium'?'sel-g':''}" id="card-g-${c.id}" onclick="selPassCrianca(${c.id},'premium')">
-                <div class="pc-check">✓</div>
-                <div class="pc-tag pc-tag-g">PREMIUM</div>
-                <div class="pc-name">Passaporte Premium</div>
-                <div class="pc-price">R$ ${CFG.premium_preco}<em>/criança</em></div>
-                <div class="pc-desc">${CFG.premium_desc}</div>
-              </div>
+              
             </div>
           </div>
         </div>
@@ -644,16 +638,7 @@ function atualizarNome(id) {
 }
 
 // ── SELECIONAR PRIMEIRA VEZ ───────────────────────────
-function selPassCrianca(id, p) {
-  const crianca = criancas.find(x => x.id === id);
-  if (!crianca) return;
-  crianca.passe = p;
-  const cp = document.getElementById('card-p-' + id);
-  const cg = document.getElementById('card-g-' + id);
-  if (cp) cp.className = 'pc' + (p === 'passaporte' ? ' sel-p' : '');
-  if (cg) cg.className = 'pc' + (p === 'premium' ? ' sel-g' : '');
-  atualizarTotal();
-}
+// selPassCrianca removida — só existe Passaporte EBF R$15
 
 function selPv(id, v) {
   const c = criancas.find(x => x.id === id);
@@ -683,32 +668,13 @@ function togCriancaS(id, k) {
 // ── ATUALIZAR TOTAL ───────────────────────────────────
 function atualizarTotal() {
   const n = criancas.length;
-  // Calcular total somando o preço individual de cada criança
-  let total = 0;
-  let qtdPremium = 0;
-  criancas.forEach(cr => {
-    if (cr.passe === 'premium') {
-      total += parseInt(CFG.premium_preco) || 47;
-      qtdPremium++;
-    } else {
-      total += parseInt(CFG.passaporte_preco) || 15;
-    }
-  });
-  const qtdPadrao = n - qtdPremium;
+  const preco = parseInt(CFG.passaporte_preco) || 15;
+  const total = n * preco;
 
   document.getElementById('qtd-label').textContent = n + ' criança(s)';
   document.getElementById('total-bar').style.display = n > 0 ? 'flex' : 'none';
   document.getElementById('total-valor').textContent = 'R$ ' + total;
-
-  let detalhe = '';
-  if (qtdPadrao > 0 && qtdPremium > 0) {
-    detalhe = qtdPadrao + '× R$' + (CFG.passaporte_preco||15) + ' + ' + qtdPremium + '× R$' + (CFG.premium_preco||47);
-  } else if (qtdPremium > 0) {
-    detalhe = n + ' × R$' + (CFG.premium_preco||47) + ' (Premium)';
-  } else {
-    detalhe = n + ' × R$' + (CFG.passaporte_preco||15) + ' (Passaporte EBF)';
-  }
-  document.getElementById('total-detalhe').textContent = detalhe;
+  document.getElementById('total-detalhe').textContent = n + ' × R$' + preco + ' (Passaporte EBF)';
 
   const btn = document.getElementById('btn-co');
   btn.className = 'btn-co tp';
@@ -804,25 +770,12 @@ async function enviar() {
     if (error) throw error;
 
     // Tela de sucesso
-    let totalFinal = 0;
-    let qtdPremFinal = 0;
-    criancas.forEach(cr => {
-      if(cr.passe === 'premium'){ totalFinal += parseInt(CFG.premium_preco)||47; qtdPremFinal++; }
-      else { totalFinal += parseInt(CFG.passaporte_preco)||15; }
-    });
-    const qtdPadFinal = criancas.length - qtdPremFinal;
-    let detalheFinal = '';
-    if(qtdPadFinal > 0 && qtdPremFinal > 0){
-      detalheFinal = qtdPadFinal+'× R$'+(CFG.passaporte_preco||15)+' (EBF) + '+qtdPremFinal+'× R$'+(CFG.premium_preco||47)+' (Premium)';
-    } else if(qtdPremFinal > 0){
-      detalheFinal = criancas.length+' criança(s) × R$'+(CFG.premium_preco||47)+' (Premium)';
-    } else {
-      detalheFinal = criancas.length+' criança(s) × R$'+(CFG.passaporte_preco||15)+' (Passaporte EBF)';
-    }
+    const precoFinal = parseInt(CFG.passaporte_preco) || 15;
+    const totalFinal = criancas.length * precoFinal;
 
     document.getElementById('s-qtd').textContent = criancas.length;
     document.getElementById('s-valor-total').textContent = 'R$ ' + totalFinal + ',00';
-    document.getElementById('s-detalhe-total').textContent = detalheFinal;
+    document.getElementById('s-detalhe-total').textContent = criancas.length + ' criança(s) × R$' + precoFinal + ' (Passaporte EBF)';
 
     // Lista de nomes
     document.getElementById('s-lista-nomes').innerHTML =
